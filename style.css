@@ -2250,3 +2250,319 @@ body.scada-theme, body {
 ::-webkit-scrollbar-thumb:hover {
   background: #94a3b8;
 }
+
+
+/* ==========================================================================
+   FLAGSHIP SCADA VISUAL EXTENSIONS (WORLD-CLASS TIER)
+   ========================================================================== */
+
+/* 1. Header & Breadcrumb Extensions */
+.plant-train-badge {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.8px;
+  padding: 2px 7px;
+  border-radius: var(--radius-sm);
+  background: rgba(16, 185, 129, 0.15);
+  color: #6ee7b7;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.ribbon-right-pill {
+  margin-left: auto;
+}
+
+.kpi-live-tag {
+  font-size: 10px;
+  font-weight: 700;
+  color: #059669;
+  background: rgba(5, 150, 105, 0.1);
+  padding: 2px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(5, 150, 105, 0.25);
+  animation: pulse-dot 2s infinite;
+}
+
+/* 2. Micro-Sparklines inside Metric KPI Cards */
+.metric-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.metric-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.metric-sparkline-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 2px;
+}
+
+.metric-sparkline {
+  width: 80px;
+  height: 26px;
+  overflow: visible;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+.sparkline-trend {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Borosilicate Beaker Meniscus & Optical Spectrophotometer Box */
+.beaker-glass {
+  border: 2px solid #64748b;
+  box-shadow: inset 0 0 16px rgba(100, 116, 139, 0.25), 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.beaker-glass::after {
+  /* Specular vertical glass reflection */
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 14px;
+  width: 10px;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+  pointer-events: none;
+  z-index: 8;
+}
+
+.beaker-meniscus {
+  position: absolute;
+  top: 25%;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  border-radius: 50%;
+  z-index: 7;
+  pointer-events: none;
+}
+
+.dirty-meniscus {
+  background: rgba(68, 24, 12, 0.85);
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+.clean-meniscus {
+  background: rgba(56, 189, 248, 0.6);
+  border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+  box-shadow: 0 2px 6px rgba(56, 189, 248, 0.3);
+}
+
+.spectro-readout-box {
+  background: #f8fafc;
+  border: 1px solid var(--scada-border);
+  border-radius: var(--radius-md);
+  padding: 6px 12px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+  font-size: 10px;
+}
+
+.spectro-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.spectro-label {
+  color: var(--text-muted);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.spectro-val {
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.process-tech-pills {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 4px;
+}
+
+.tech-pill {
+  font-size: 9px;
+  font-weight: 600;
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.08);
+  border: 1px solid rgba(2, 132, 199, 0.2);
+  padding: 1px 6px;
+  border-radius: var(--radius-sm);
+}
+
+/* 4. CAD Blueprint Grid & P&ID Spray Distributor */
+.scada-cad-grid {
+  background-color: #ffffff;
+  background-image: 
+    linear-gradient(to right, rgba(148, 163, 184, 0.12) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(148, 163, 184, 0.12) 1px, transparent 1px);
+  background-size: 20px 20px;
+  position: relative;
+}
+
+.column-spray-distributor {
+  position: relative;
+  width: 100%;
+  height: 22px;
+  background: #f1f5f9;
+  border-bottom: 1px dashed var(--scada-border-light);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.nozzle-manifold {
+  width: 60%;
+  height: 4px;
+  background: #0284c7;
+  border-radius: 2px;
+}
+
+.spray-droplets {
+  display: flex;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.spray-droplets i {
+  display: inline-block;
+  width: 2px;
+  height: 5px;
+  background: #38bdf8;
+  border-radius: 1px;
+  animation: spray-fall 0.8s ease-in infinite;
+}
+
+.spray-droplets i:nth-child(2) { animation-delay: 0.15s; }
+.spray-droplets i:nth-child(3) { animation-delay: 0.3s; }
+.spray-droplets i:nth-child(4) { animation-delay: 0.45s; }
+.spray-droplets i:nth-child(5) { animation-delay: 0.6s; }
+
+@keyframes spray-fall {
+  0% { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(8px); opacity: 0; }
+}
+
+.column-underdrain-mesh {
+  font-size: 8px;
+  color: var(--text-muted);
+  background: #e2e8f0;
+  padding: 3px 6px;
+  text-align: center;
+  border-top: 1px solid var(--scada-border);
+  letter-spacing: 0.4px;
+}
+
+.pipe-chevrons {
+  position: absolute;
+  display: flex;
+  gap: 6px;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1;
+  pointer-events: none;
+  animation: chevron-pulse 1.2s infinite;
+}
+
+@keyframes chevron-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.9; }
+}
+
+/* 5. Molecular Science Mini-Diagrams */
+.science-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.science-mini-diagram {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  background: #f8fafc;
+  border: 1px solid var(--scada-border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 6. Tactile Industrial HMI Controls */
+.demo-btn.tactile {
+  position: relative;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  border: 1px solid var(--scada-border-light);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transition: all 0.15s ease;
+  padding-left: 20px;
+}
+
+.demo-btn.tactile:hover {
+  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  border-color: #94a3b8;
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.demo-btn.tactile:active {
+  transform: translateY(1px);
+  background: #f1f5f9;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+.hardware-led {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #94a3b8;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.3);
+}
+
+.hardware-led.red.active, .demo-btn.danger:hover .hardware-led {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+.hardware-led.amber.active, .demo-btn.warning:hover .hardware-led {
+  background: #f59e0b;
+  box-shadow: 0 0 6px #f59e0b;
+}
+
+.hardware-led.green.active, .demo-btn.success:hover .hardware-led {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.hardware-led.blue.active, .demo-btn.primary:hover .hardware-led {
+  background: #0284c7;
+  box-shadow: 0 0 6px #0284c7;
+}
+
+.hardware-led.indigo.active, .demo-btn.info:hover .hardware-led {
+  background: #6366f1;
+  box-shadow: 0 0 6px #6366f1;
+}

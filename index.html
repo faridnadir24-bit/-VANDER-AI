@@ -35,10 +35,10 @@
     <p class="loading-sub">Menginisialisasi Field Bus &amp; Pipeline Adsorpsi Kolom Biochar...</p>
     <div class="loading-bar"><div class="loading-bar-fill"></div></div>
     <div class="loading-steps" id="loadingSteps">
-      <span class="load-step active">Koneksi field bus RS-485/Modbus</span>
-      <span class="load-step">Kalibrasi elektroda kaca pH &amp; sensor NTU</span>
-      <span class="load-step">Sinkronisasi telemetri OPC-UA</span>
-      <span class="load-step">Menginisialisasi inference engine kinetika</span>
+      <span class="load-step active">Koneksi field bus RS-485/Modbus RTU</span>
+      <span class="load-step">Kalibrasi elektroda kaca pH &amp; sensor NTU ISO 7027</span>
+      <span class="load-step">Sinkronisasi telemetri OPC-UA Sparkplug B</span>
+      <span class="load-step">Menginisialisasi inference engine kinetika Thomas</span>
     </div>
   </div>
 </div>
@@ -48,7 +48,7 @@
   <div class="header-left">
     <div class="logo">
       <svg viewBox="0 0 44 44" width="44" height="44" class="scada-logo-header">
-        <rect x="2" y="2" width="40" height="40" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+        <rect x="2" y="2" width="40" height="40" rx="8" fill="#0b1e36" stroke="rgba(255,255,255,0.15)" stroke-width="1.5"/>
         <path d="M22 6 C22 6, 12 18, 12 26 C12 32.6 16.5 37 22 37 C27.5 37 32 32.6 32 26 C32 18, 22 6, 22 6Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
         <circle cx="22" cy="27" r="3.5" fill="#10b981"/>
         <line x1="16" y1="21" x2="28" y2="21" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="2 2"/>
@@ -58,6 +58,7 @@
       <div class="header-badge-row">
         <h1>VANDER-AI</h1>
         <span class="enterprise-tag">ENTERPRISE SCADA v4.2</span>
+        <span class="plant-train-badge font-mono">TRAIN-B // LOOP-R201</span>
       </div>
       <p class="tagline">Smart Adsorbent Monitoring System &bull; Continuous Fixed-Bed Biochar Column Reactor</p>
     </div>
@@ -100,7 +101,7 @@
   </div>
   <div class="ribbon-item">
     <span class="ribbon-label">AI INFERENCE CORE:</span>
-    <span class="ribbon-val high-tech">VANDER-Neural v4.2 [Active]</span>
+    <span class="ribbon-val high-tech font-mono">VANDER-Neural v4.2 [Steady State]</span>
   </div>
   <div class="ribbon-item">
     <span class="ribbon-label">BUS LATENCY:</span>
@@ -109,6 +110,10 @@
   <div class="ribbon-item">
     <span class="ribbon-label">CONFIDENCE SCORE:</span>
     <span class="ribbon-val font-mono text-success" id="ribbonConfidence">99.4% (F1: 0.982)</span>
+  </div>
+  <div class="ribbon-item ribbon-right-pill">
+    <span class="ribbon-label">CYCLE TIME:</span>
+    <span class="ribbon-val font-mono">3.00s (20 Hz Loop)</span>
   </div>
 </div>
 
@@ -121,7 +126,7 @@
       <line x1="12" y1="17" x2="12.01" y2="17"/>
     </svg>
   </span>
-  <span id="emergencyText">EMERGENCY: Kualitas output melewati ambang batas!</span>
+  <span id="emergencyText">EMERGENCY INTERLOCK ENGAGED: Parameter keluaran melebihi batas baku mutu! Katup MOV-301 dialihkan ke tangki retensi.</span>
   <span class="emergency-icon">
     <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
       <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
@@ -172,22 +177,22 @@
           </div>
           <div class="diag-item">
             <span class="diag-label">Massa Biochar Aktif:</span>
-            <span class="diag-val font-mono">125.0 kg (Pyrolysis 500°C)</span>
+            <span class="diag-val font-mono">125.0 kg (Pirolisis 500°C)</span>
           </div>
           <div class="diag-item">
             <span class="diag-label">Reduksi Cr(VI) Kinetika:</span>
             <span class="diag-val text-success font-mono" id="diagRedox">Pseudo-Second Order (k₂: 0.042)</span>
           </div>
           <div class="diag-item">
-            <span class="diag-label">Safety Interlock:</span>
-            <span class="diag-val text-success" id="diagInterlock">ARMED &amp; MONITORING</span>
+            <span class="diag-label">Safety Interlock Status:</span>
+            <span class="diag-val text-success font-mono" id="diagInterlock">ARMED &amp; MONITORING</span>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: Summary Metric Cards -->
+  <!-- SECTION: Summary Metric Cards with Micro-Sparklines -->
   <section class="section metrics-section">
     <div class="section-title">
       <h2>
@@ -196,76 +201,136 @@
           <line x1="12" y1="20" x2="12" y2="4"/>
           <line x1="6" y1="20" x2="6" y2="14"/>
         </svg>
-        Ringkasan Metrik Operasional (Process KPIs)
+        Ringkasan Metrik Operasional (Process KPIs &amp; Telemetry)
       </h2>
+      <span class="kpi-live-tag font-mono">STREAM ACTIVE</span>
     </div>
     <div class="metrics-grid">
+      <!-- Card 1 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-cyan">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-cyan">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkRecycled" d="M0 22 Q20 18 40 12 T80 4" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend text-info font-mono">+1.2 L/min</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Total Air Didaur Ulang</span>
           <span class="metric-value font-mono" id="metricRecycled">0 L</span>
         </div>
       </div>
+
+      <!-- Card 2 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-emerald">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            <path d="m9 12 2 2 4-4"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-emerald">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+              <path d="m9 12 2 2 4-4"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkEfficiency" d="M0 14 Q20 8 40 10 T80 6" fill="none" stroke="#059669" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend text-success font-mono">NOMINAL</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Efisiensi Filtrasi</span>
           <span class="metric-value font-mono" id="metricEfficiency">0%</span>
         </div>
       </div>
+
+      <!-- Card 3 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-amber">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <polyline points="12 6 12 12 16 14"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-amber">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"/>
+              <polyline points="12 6 12 12 16 14"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkUptime" d="M0 24 L20 20 L40 14 L60 8 L80 4" fill="none" stroke="#d97706" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend text-warning font-mono">RUNNING</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Waktu Operasi Kolom</span>
           <span class="metric-value font-mono" id="metricUptime">00:00:00</span>
         </div>
       </div>
+
+      <!-- Card 4 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-purple">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <ellipse cx="12" cy="5" rx="9" ry="3"/>
-            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
-            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-purple">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3"/>
+              <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkCapacity" d="M0 6 Q20 8 40 14 T80 18" fill="none" stroke="#4f46e5" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend font-mono" style="color:#4f46e5;">&tau; 52.8h</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Kapasitas Adsorpsi Biochar</span>
           <span class="metric-value font-mono" id="metricCapacity">0%</span>
         </div>
       </div>
+
+      <!-- Card 5 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-blue">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="1" x2="12" y2="23"/>
-            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-blue">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"/>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkSavings" d="M0 24 Q30 18 50 10 T80 2" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend text-info font-mono">PDAM Eco</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Estimasi Penghematan</span>
           <span class="metric-value font-mono" id="metricSavings">Rp 0</span>
         </div>
       </div>
+
+      <!-- Card 6 -->
       <div class="metric-card">
-        <div class="metric-icon-scada icon-green">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
-            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
-          </svg>
+        <div class="metric-top-row">
+          <div class="metric-icon-scada icon-green">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+              <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+            </svg>
+          </div>
+          <div class="metric-sparkline-box">
+            <svg class="metric-sparkline" viewBox="0 0 80 26">
+              <path id="sparkCO2" d="M0 22 Q25 16 55 8 T80 4" fill="none" stroke="#16a34a" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <span class="sparkline-trend text-success font-mono">Carbon Abated</span>
+          </div>
         </div>
         <div class="metric-info">
           <span class="metric-label">Emisi CO₂ Ditekan</span>
@@ -286,7 +351,7 @@
         </svg>
         Nephelometric Laser Attenuation &amp; Fluid Clarity Diagnostics
       </h2>
-      <span class="viz-subtitle">Pemindaian Spektrofotometri &amp; Hamburan Cahaya (ISO 7027 Turbidity Standard &bull; &lambda; = 860 nm)</span>
+      <span class="viz-subtitle">Spektrofotometri Transmitansi &amp; Hamburan Cahaya 90&deg; (ISO 7027 Turbidity Standard &bull; &lambda; = 860 nm)</span>
     </div>
     <div class="water-viz-container">
       <!-- LEFT: Dirty Water Beaker -->
@@ -295,11 +360,13 @@
           <span class="beaker-label">SAMPLING INLET [FIT-101]</span>
           <span class="status-indicator-pill danger">RAW INFLUENT</span>
         </div>
-        <div class="beaker-sublabel">Air Limbah Industri Tekstil Mentah</div>
+        <div class="beaker-sublabel">Air Limbah Industri Tekstil Mentah (Dye &amp; Heavy Metals)</div>
         <div class="beaker" id="beakerDirty">
           <div class="beaker-glass">
             <div class="laser-scanner" id="dirtyLaser" title="Sinar Laser Nephelometrik (650 nm NIR)"></div>
             <div class="laser-scatter-cone dirty-cone" id="dirtyScatterCone"></div>
+            <!-- Glass Meniscus Curve -->
+            <div class="beaker-meniscus dirty-meniscus"></div>
             <div class="water dirty-water" id="dirtyWater">
               <div class="wave"></div>
               <div class="bubbles" id="dirtyBubbles"></div>
@@ -319,6 +386,17 @@
         <div class="optical-badge danger font-mono" id="dirtyOpticalBadge">
           <span class="opt-dot"></span>
           <span id="dirtyOpticalText">Hamburan Cahaya: 96.8% &bull; Transmitansi: 3.2%</span>
+        </div>
+        <!-- Digital Spectrophotometer Box -->
+        <div class="spectro-readout-box font-mono">
+          <div class="spectro-col">
+            <span class="spectro-label">Optical Beam:</span>
+            <span class="spectro-val">NIR 860 nm</span>
+          </div>
+          <div class="spectro-col">
+            <span class="spectro-label">Absorbansi (A):</span>
+            <span class="spectro-val text-danger" id="dirtyAbsorbance">1.49 AU</span>
+          </div>
         </div>
         <div class="water-status dirty-status">
           <span class="status-badge danger">DARK &amp; TURBID</span>
@@ -341,7 +419,12 @@
           <div class="arrow-line"></div>
         </div>
         <div class="process-label">Biochar Adsorbent Column</div>
-        <div class="process-detail">Van der Waals &bull; Redoks &bull; Kemisorpsi Monolayer</div>
+        <div class="process-detail">Downflow Fixed-Bed &bull; Pirolisis 500&deg;C</div>
+        <div class="process-tech-pills">
+          <span class="tech-pill">Van der Waals</span>
+          <span class="tech-pill">Redoks Cr(VI)</span>
+          <span class="tech-pill">Kemisorpsi</span>
+        </div>
       </div>
 
       <!-- RIGHT: Clean Water Beaker -->
@@ -355,6 +438,8 @@
           <div class="beaker-glass">
             <div class="laser-scanner clean-laser" id="cleanLaser" title="Sinar Laser Nephelometrik (650 nm NIR)"></div>
             <div class="laser-scatter-cone clean-cone" id="cleanScatterCone"></div>
+            <!-- Glass Meniscus Curve -->
+            <div class="beaker-meniscus clean-meniscus"></div>
             <div class="water clean-water" id="cleanWater">
               <div class="wave"></div>
               <div class="bubbles" id="cleanBubbles"></div>
@@ -374,6 +459,17 @@
         <div class="optical-badge success font-mono" id="cleanOpticalBadge">
           <span class="opt-dot"></span>
           <span id="cleanOpticalText">Transmitansi Optik: 99.2% &bull; Hamburan Cahaya: 0.8%</span>
+        </div>
+        <!-- Digital Spectrophotometer Box -->
+        <div class="spectro-readout-box font-mono">
+          <div class="spectro-col">
+            <span class="spectro-label">Optical Beam:</span>
+            <span class="spectro-val">NIR 860 nm</span>
+          </div>
+          <div class="spectro-col">
+            <span class="spectro-label">Absorbansi (A):</span>
+            <span class="spectro-val text-success" id="cleanAbsorbance">0.003 AU</span>
+          </div>
         </div>
         <div class="water-status clean-status">
           <span class="status-badge success">CLEAR &amp; CLEAN</span>
@@ -398,15 +494,15 @@
       </h2>
       <span class="demo-badge font-mono">ISA-5.1 PROCESS FLOW SYNOPTIC</span>
     </div>
-    <div class="scada-diagram-card">
+    <div class="scada-diagram-card scada-cad-grid">
       <div class="scada-flow-wrapper">
         
         <!-- Node 1: Feed Pump P-101 -->
         <div class="scada-node node-pump">
-          <div class="node-tag font-mono">PUMP P-101</div>
+          <div class="node-tag font-mono">PUMP P-101 (CENTRIFUGAL)</div>
           <div class="pump-icon-wrap" id="pumpIconWrap">
             <span class="pump-symbol">
-              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <circle cx="12" cy="12" r="9"/>
                 <path d="M12 3v9l6 3"/>
                 <circle cx="12" cy="12" r="3"/>
@@ -414,7 +510,7 @@
             </span>
           </div>
           <div class="node-meta">
-            <span class="node-state running" id="pumpState">RUNNING</span>
+            <span class="node-state running font-mono" id="pumpState">RUNNING</span>
             <small id="pumpSpeed" class="font-mono">Flow: 75.0 L/jam</small>
           </div>
         </div>
@@ -422,6 +518,7 @@
         <!-- Pipe Connector 1 -->
         <div class="scada-pipe-line active-line">
           <div class="pipe-liquid in-flow"></div>
+          <div class="pipe-chevrons"><span>&rsaquo;</span><span>&rsaquo;</span><span>&rsaquo;</span></div>
           <span class="pipe-sensor-tag font-mono">FIT-101 / AIT-101</span>
         </div>
 
@@ -429,7 +526,20 @@
         <div class="scada-node node-reactor">
           <div class="node-tag font-mono">REACTOR R-201 (BIOCHAR COLUMN)</div>
           <div class="column-visual">
-            <div class="column-header-cap font-mono">Bed Height: 120 cm &bull; Downflow</div>
+            <div class="column-header-cap font-mono">
+              <span>Height: 120 cm</span>
+              <span>&empty; ID: 15 cm</span>
+              <span>EBCT: 18.5 min</span>
+            </div>
+            
+            <!-- Spray Distributor Nozzle -->
+            <div class="column-spray-distributor">
+              <div class="nozzle-manifold"></div>
+              <div class="spray-droplets">
+                <i></i><i></i><i></i><i></i><i></i>
+              </div>
+            </div>
+
             <div class="column-bed-body">
               <div class="mtz-zone" id="mtzZoneBar" style="height: 15%;" title="Mass Transfer Zone (MTZ)">
                 <span class="mtz-label font-mono">MTZ Saturasi: <span id="mtzPercent">15%</span></span>
@@ -439,6 +549,12 @@
                 <span class="bed-text">Chicken Manure Biochar Layer (500°C)</span>
               </div>
             </div>
+
+            <!-- Column Underdrain Support Grid -->
+            <div class="column-underdrain-mesh font-mono">
+              <span>Support Mesh: 0.5 mm &bull; Quartz Gravel Bed</span>
+            </div>
+
             <div class="column-footer-cap font-mono">
               <span>&Delta;P: <strong id="bedPressure">0.18 bar</strong></span>
               <span>Bed Temp: <strong>28.4°C</strong></span>
@@ -449,6 +565,7 @@
         <!-- Pipe Connector 2 -->
         <div class="scada-pipe-line active-line">
           <div class="pipe-liquid out-flow"></div>
+          <div class="pipe-chevrons"><span>&rsaquo;</span><span>&rsaquo;</span><span>&rsaquo;</span></div>
           <span class="pipe-sensor-tag font-mono">TURB-201 / AIT-202</span>
         </div>
 
@@ -596,7 +713,7 @@
     </div>
   </section>
 
-  <!-- SECTION: AI Modules -->
+  <!-- SECTION: AI Modules & Molecular Science Visualizer -->
   <section class="section ai-section">
     <div class="section-title">
       <h2>
@@ -609,49 +726,60 @@
       </h2>
     </div>
     <div class="science-banner">
+      <!-- Science 1 -->
       <div class="science-item">
-        <span class="science-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="3"/>
-            <path d="M12 2a10 10 0 0 0 0 20M12 2a10 10 0 0 1 0 20"/>
-            <ellipse cx="12" cy="12" rx="10" ry="4"/>
+        <div class="science-mini-diagram">
+          <svg viewBox="0 0 48 48" width="44" height="44">
+            <path d="M4 40 C14 36, 16 20, 24 20 C32 20, 34 36, 44 40" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="2 2"/>
+            <circle cx="24" cy="14" r="5" fill="#0284c7" opacity="0.85"/>
+            <line x1="24" y1="19" x2="24" y2="28" stroke="#0284c7" stroke-width="1.5" stroke-dasharray="2 1"/>
+            <circle cx="24" cy="30" r="3" fill="#38bdf8"/>
           </svg>
-        </span>
+        </div>
         <div class="science-desc">
           <div class="science-header">
             <strong>Gaya Van der Waals</strong>
             <span class="formula-badge font-mono">E<sub>vdW</sub> &prop; -C/r⁶</span>
           </div>
-          <small>Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada pori mikro-meso biochar kotoran ayam.</small>
+          <small>Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada mikropori biochar kotoran ayam.</small>
         </div>
       </div>
+
+      <!-- Science 2 -->
       <div class="science-item">
-        <span class="science-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <polyline points="23 4 23 10 17 10"/>
-            <polyline points="1 20 1 14 7 14"/>
-            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        <div class="science-mini-diagram">
+          <svg viewBox="0 0 48 48" width="44" height="44">
+            <circle cx="14" cy="24" r="7" fill="#d97706" opacity="0.8"/>
+            <text x="14" y="27" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">6+</text>
+            <path d="M22 24 L32 24" stroke="#059669" stroke-width="2" marker-end="url(#arrow)"/>
+            <circle cx="36" cy="24" r="6" fill="#059669"/>
+            <text x="36" y="27" font-size="8" fill="#fff" text-anchor="middle" font-weight="bold">3+</text>
+            <text x="24" y="16" font-size="8" fill="#0284c7" font-weight="bold">+3e⁻</text>
           </svg>
-        </span>
+        </div>
         <div class="science-desc">
           <div class="science-header">
             <strong>Reaksi Redoks</strong>
             <span class="formula-badge font-mono">Cr⁶⁺ + 3e⁻ &rarr; Cr³⁺</span>
           </div>
-          <small>Reduksi ion kromium heksavalen karsinogenik menjadi ion trivalen stabil &amp; terendapkan oleh gugus donor elektron biochar.</small>
+          <small>Reduksi ion kromium heksavalen karsinogenik menjadi ion trivalen stabil oleh gugus donor elektron biochar.</small>
         </div>
       </div>
+
+      <!-- Science 3 -->
       <div class="science-item">
-        <span class="science-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="6" cy="6" r="3"/>
-            <circle cx="18" cy="6" r="3"/>
-            <circle cx="12" cy="18" r="3"/>
-            <line x1="8.5" y1="7.5" x2="15.5" y2="7.5"/>
-            <line x1="7.5" y1="8.5" x2="10.5" y2="15.5"/>
-            <line x1="16.5" y1="8.5" x2="13.5" y2="15.5"/>
+        <div class="science-mini-diagram">
+          <svg viewBox="0 0 48 48" width="44" height="44">
+            <circle cx="24" cy="24" r="7" fill="#dc2626" opacity="0.8"/>
+            <text x="24" y="27" font-size="7" fill="#fff" text-anchor="middle" font-weight="bold">Pb²⁺</text>
+            <circle cx="12" cy="12" r="3" fill="#0284c7"/>
+            <circle cx="36" cy="12" r="3" fill="#0284c7"/>
+            <line x1="14" y1="14" x2="20" y2="20" stroke="#0284c7" stroke-width="1.5"/>
+            <line x1="34" y1="14" x2="28" y2="20" stroke="#0284c7" stroke-width="1.5"/>
+            <text x="8" y="10" font-size="6" fill="#64748b">COOH</text>
+            <text x="32" y="10" font-size="6" fill="#64748b">OH</text>
           </svg>
-        </span>
+        </div>
         <div class="science-desc">
           <div class="science-header">
             <strong>Afinitas Gugus Fungsi</strong>
@@ -660,13 +788,20 @@
           <small>Kompleksasi permukaan mengikat kation logam berat (Pb²⁺, Cd²⁺, Cu²⁺) secara selektif &amp; ireversibel.</small>
         </div>
       </div>
+
+      <!-- Science 4 -->
       <div class="science-item">
-        <span class="science-icon">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+        <div class="science-mini-diagram">
+          <svg viewBox="0 0 48 48" width="44" height="44">
+            <rect x="6" y="32" width="36" height="8" rx="2" fill="#475569"/>
+            <circle cx="16" cy="22" r="4" fill="#059669"/>
+            <circle cx="24" cy="22" r="4" fill="#059669"/>
+            <circle cx="32" cy="22" r="4" fill="#059669"/>
+            <line x1="16" y1="26" x2="16" y2="32" stroke="#059669" stroke-width="2"/>
+            <line x1="24" y1="26" x2="24" y2="32" stroke="#059669" stroke-width="2"/>
+            <line x1="32" y1="26" x2="32" y2="32" stroke="#059669" stroke-width="2"/>
           </svg>
-        </span>
+        </div>
         <div class="science-desc">
           <div class="science-header">
             <strong>Kemisorpsi Monolayer</strong>
@@ -676,6 +811,7 @@
         </div>
       </div>
     </div>
+
     <div class="ai-grid">
 
       <!-- Module A: Breakthrough Predictor -->
@@ -870,7 +1006,7 @@
         <h4>pH Effluent (AIT-202A)</h4>
         <div class="gauge-container" id="gaugePH">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradPH)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugePHArc" stroke-dasharray="251.2" stroke-dashoffset="125.6"/>
             <defs>
               <linearGradient id="gaugeGradPH" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -892,7 +1028,7 @@
         <h4>Turbidity Effluent (AIT-202B)</h4>
         <div class="gauge-container" id="gaugeTurbidity">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradTurb)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugeTurbidityArc" stroke-dasharray="251.2" stroke-dashoffset="226.08"/>
             <defs>
               <linearGradient id="gaugeGradTurb" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -912,7 +1048,7 @@
         <h4>EC Effluent (AIT-202C)</h4>
         <div class="gauge-container" id="gaugeEC">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradEC)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugeECArc" stroke-dasharray="251.2" stroke-dashoffset="226.08"/>
             <defs>
               <linearGradient id="gaugeGradEC" x1="0%" y1="0%" x2="100%" y2="0%">
@@ -1065,12 +1201,13 @@
         </svg>
         Simulation Testing &amp; Actuator Diagnostics
       </h2>
-      <span class="demo-badge font-mono">SCADA TEST CONSOLE</span>
+      <span class="demo-badge font-mono">TACTILE HMI CONSOLE</span>
     </div>
     <div class="demo-controls-card">
-      <p class="demo-desc">Validasi respons sistem secara interaktif: uji skenario darurat (*quality trip*), penyumbatan media (*hydraulic clogging*), regenerasi adsorben (*backwash cycle*), atau ekspor audit log telemetri:</p>
+      <p class="demo-desc">Validasi responsivitas sistem: picu skenario anomali kualitas (*interlock trip*), simulasi penyumbatan pori (*bed clogging*), siklus regenerasi (*backwash cycle*), atau unduh audit telemetri CSV:</p>
       <div class="demo-buttons-grid">
-        <button type="button" class="demo-btn danger" id="btnTriggerEmergency">
+        <button type="button" class="demo-btn tactile danger" id="btnTriggerEmergency">
+          <span class="hardware-led red" id="ledEmergency"></span>
           <span class="btn-icon">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
@@ -1081,7 +1218,8 @@
             <small>Picu lonjakan kekeruhan &gt; batas (uji interlock MOV-301 &amp; alarm)</small>
           </div>
         </button>
-        <button type="button" class="demo-btn warning" id="btnTriggerClog">
+        <button type="button" class="demo-btn tactile warning" id="btnTriggerClog">
+          <span class="hardware-led amber" id="ledClog"></span>
           <span class="btn-icon">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
@@ -1094,7 +1232,8 @@
             <small>Picu penurunan debit &gt; 15% (uji deteksi backwash &amp; &Delta;P)</small>
           </div>
         </button>
-        <button type="button" class="demo-btn success" id="btnResetNormal">
+        <button type="button" class="demo-btn tactile success" id="btnResetNormal">
+          <span class="hardware-led green active" id="ledReset"></span>
           <span class="btn-icon">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <polyline points="23 4 23 10 17 10"/>
@@ -1107,7 +1246,8 @@
             <small>Regenerasi biochar 95%, buka katup sungai, pulihkan parameter</small>
           </div>
         </button>
-        <button type="button" class="demo-btn primary" id="btnToggleSim">
+        <button type="button" class="demo-btn tactile primary" id="btnToggleSim">
+          <span class="hardware-led blue active" id="ledSim"></span>
           <span class="btn-icon" id="simIcon">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <rect x="6" y="4" width="4" height="16"/>
@@ -1119,7 +1259,8 @@
             <small>Bekukan / lanjutkan streaming loop pembaruan sensor</small>
           </div>
         </button>
-        <button type="button" class="demo-btn info" id="btnExportData">
+        <button type="button" class="demo-btn tactile info" id="btnExportData">
+          <span class="hardware-led indigo" id="ledExport"></span>
           <span class="btn-icon">
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>

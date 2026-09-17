@@ -911,6 +911,18 @@
         if (cleanBadge) cleanBadge.className = 'optical-badge success';
       }
     }
+
+    // Absorbance Calculation: A = -log10(T / 100)
+    const dirtyAbsEl = document.getElementById('dirtyAbsorbance');
+    const cleanAbsEl = document.getElementById('cleanAbsorbance');
+    if (dirtyAbsEl) {
+      const aDirty = -Math.log10(Math.max(dirtyTrans, 0.05) / 100);
+      dirtyAbsEl.textContent = `${formatNumber(aDirty, 2)} AU`;
+    }
+    if (cleanAbsEl) {
+      const aClean = -Math.log10(Math.max(cleanTrans, 0.1) / 100);
+      cleanAbsEl.textContent = `${formatNumber(Math.max(aClean, 0.003), 3)} AU`;
+    }
   }
 
   // ============ LIVE TELEMETRY LOG STREAM ============
