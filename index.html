@@ -3,38 +3,42 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>VANDER-AI | Smart Adsorbent Monitoring System</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>VANDER-AI | Enterprise SCADA Industrial Wastewater Monitoring</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="scada-theme">
 
 <!-- ============ LOADING SCREEN ============ -->
 <div class="loading-screen" id="loadingScreen">
   <div class="loading-content">
-    <svg viewBox="0 0 80 80" width="80" height="80" class="loading-logo">
-      <defs>
-        <linearGradient id="loadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" style="stop-color:#0ea5e9"/>
-          <stop offset="100%" style="stop-color:#10b981"/>
-        </linearGradient>
-      </defs>
-      <path d="M40 6 C40 6, 12 36, 12 50 C12 64 24.5 74 40 74 C55.5 74 68 64 68 50 C68 36, 40 6, 40 6Z" fill="url(#loadGrad)" opacity="0.9"/>
-      <circle cx="33" cy="46" r="4.5" fill="white" opacity="0.8"/>
-      <circle cx="47" cy="46" r="4.5" fill="white" opacity="0.8"/>
-      <circle cx="40" cy="36" r="4.5" fill="white" opacity="0.8"/>
-      <line x1="33" y1="46" x2="47" y2="46" stroke="white" stroke-width="2" opacity="0.8"/>
-      <line x1="33" y1="46" x2="40" y2="36" stroke="white" stroke-width="2" opacity="0.8"/>
-      <line x1="47" y1="46" x2="40" y2="36" stroke="white" stroke-width="2" opacity="0.8"/>
-    </svg>
-    <h2 class="loading-title">VANDER-AI</h2>
-    <p class="loading-sub">Menginisialisasi sistem pemantauan...</p>
+    <div class="loading-logo-box">
+      <svg viewBox="0 0 64 64" width="64" height="64" class="scada-logo-svg">
+        <defs>
+          <linearGradient id="scadaLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38bdf8"/>
+            <stop offset="100%" stop-color="#10b981"/>
+          </linearGradient>
+        </defs>
+        <circle cx="32" cy="32" r="30" fill="none" stroke="rgba(56, 189, 248, 0.2)" stroke-width="2"/>
+        <path d="M32 8 L48 24 L48 48 L16 48 L16 24 Z" fill="none" stroke="url(#scadaLogoGrad)" stroke-width="2.5" stroke-linejoin="round"/>
+        <circle cx="32" cy="32" r="6" fill="#0284c7"/>
+        <line x1="32" y1="14" x2="32" y2="26" stroke="#38bdf8" stroke-width="2"/>
+        <line x1="32" y1="38" x2="32" y2="48" stroke="#10b981" stroke-width="2"/>
+        <line x1="20" y1="32" x2="26" y2="32" stroke="#38bdf8" stroke-width="2"/>
+        <line x1="38" y1="32" x2="44" y2="32" stroke="#10b981" stroke-width="2"/>
+      </svg>
+    </div>
+    <h2 class="loading-title">VANDER-AI // SCADA CORE</h2>
+    <p class="loading-sub">Menginisialisasi Field Bus &amp; Pipeline Adsorpsi Kolom Biochar...</p>
     <div class="loading-bar"><div class="loading-bar-fill"></div></div>
     <div class="loading-steps" id="loadingSteps">
-      <span class="load-step active">Koneksi sensor</span>
-      <span class="load-step">Kalibrasi pH meter</span>
-      <span class="load-step">Sinkronisasi data</span>
-      <span class="load-step">Memulai AI engine</span>
+      <span class="load-step active">Koneksi field bus RS-485/Modbus</span>
+      <span class="load-step">Kalibrasi elektroda kaca pH &amp; sensor NTU</span>
+      <span class="load-step">Sinkronisasi telemetri OPC-UA</span>
+      <span class="load-step">Menginisialisasi inference engine kinetika</span>
     </div>
   </div>
 </div>
@@ -43,22 +47,11 @@
 <header class="header">
   <div class="header-left">
     <div class="logo">
-      <!-- SVG logo: a stylized water drop with molecular bonds inside -->
-      <svg viewBox="0 0 48 48" width="48" height="48">
-        <defs>
-          <linearGradient id="logoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#0ea5e9"/>
-            <stop offset="100%" style="stop-color:#10b981"/>
-          </linearGradient>
-        </defs>
-        <path d="M24 4 C24 4, 8 22, 8 30 C8 38.8 15.2 44 24 44 C32.8 44 40 38.8 40 30 C40 22, 24 4, 24 4Z" fill="url(#logoGrad)" opacity="0.9"/>
-        <!-- molecular bonds inside drop -->
-        <circle cx="20" cy="28" r="3" fill="white" opacity="0.8"/>
-        <circle cx="28" cy="28" r="3" fill="white" opacity="0.8"/>
-        <circle cx="24" cy="22" r="3" fill="white" opacity="0.8"/>
-        <line x1="20" y1="28" x2="28" y2="28" stroke="white" stroke-width="1.5" opacity="0.8"/>
-        <line x1="20" y1="28" x2="24" y2="22" stroke="white" stroke-width="1.5" opacity="0.8"/>
-        <line x1="28" y1="28" x2="24" y2="22" stroke="white" stroke-width="1.5" opacity="0.8"/>
+      <svg viewBox="0 0 44 44" width="44" height="44" class="scada-logo-header">
+        <rect x="2" y="2" width="40" height="40" rx="8" fill="#0f172a" stroke="#1e293b" stroke-width="1.5"/>
+        <path d="M22 6 C22 6, 12 18, 12 26 C12 32.6 16.5 37 22 37 C27.5 37 32 32.6 32 26 C32 18, 22 6, 22 6Z" fill="none" stroke="#38bdf8" stroke-width="2"/>
+        <circle cx="22" cy="27" r="3.5" fill="#10b981"/>
+        <line x1="16" y1="21" x2="28" y2="21" stroke="rgba(255,255,255,0.4)" stroke-width="1.5" stroke-dasharray="2 2"/>
       </svg>
     </div>
     <div class="header-text">
@@ -66,23 +59,35 @@
         <h1>VANDER-AI</h1>
         <span class="enterprise-tag">ENTERPRISE SCADA v4.2</span>
       </div>
-      <p class="tagline">Smart Adsorbent Monitoring System &bull; Biochar Fixed-Bed Reactor</p>
+      <p class="tagline">Smart Adsorbent Monitoring System &bull; Continuous Fixed-Bed Biochar Column Reactor</p>
     </div>
   </div>
   <div class="header-right">
     <div class="header-actions">
-      <button type="button" class="header-tool-btn" id="btnAudioToggle" title="Aktifkan/Nonaktifkan Suara Peringatan">
-        <span id="audioIcon">🔇</span> <span id="audioText">Audio FX: OFF</span>
+      <button type="button" class="header-tool-btn" id="btnAudioToggle" title="Toggle SCADA Acoustic Feedback">
+        <span id="audioIcon" class="btn-svg-ico">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+            <line x1="23" y1="9" x2="17" y2="15"/>
+            <line x1="17" y1="9" x2="23" y2="15"/>
+          </svg>
+        </span>
+        <span id="audioText">Audio FX: OFF</span>
       </button>
-      <button type="button" class="header-tool-btn primary" id="btnOpenTelemetry" title="Buka Live Telemetry Stream Inspector">
-        <span>📡</span> <span>Live Telemetry</span>
+      <button type="button" class="header-tool-btn primary" id="btnOpenTelemetry" title="Inspect Real-Time MQTT / OPC-UA Packet Bus">
+        <span class="btn-svg-ico">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
+          </svg>
+        </span>
+        <span>Live Telemetry</span>
       </button>
     </div>
     <div class="system-status" id="systemStatus">
       <span class="status-dot active"></span>
       <span id="statusLabel">SCADA ONLINE</span>
     </div>
-    <div class="clock" id="clock"></div>
+    <div class="clock font-mono" id="clock">00:00:00 UTC</div>
   </div>
 </header>
 
@@ -98,20 +103,32 @@
     <span class="ribbon-val high-tech">VANDER-Neural v4.2 [Active]</span>
   </div>
   <div class="ribbon-item">
-    <span class="ribbon-label">LATENCY / PROTOCOL:</span>
-    <span class="ribbon-val" id="ribbonLatency">8 ms &bull; OPC-UA / TLS 1.3</span>
+    <span class="ribbon-label">BUS LATENCY:</span>
+    <span class="ribbon-val font-mono" id="ribbonLatency">8 ms &bull; OPC-UA / TLS 1.3</span>
   </div>
   <div class="ribbon-item">
     <span class="ribbon-label">CONFIDENCE SCORE:</span>
-    <span class="ribbon-val text-success" id="ribbonConfidence">99.4% (F1: 0.982)</span>
+    <span class="ribbon-val font-mono text-success" id="ribbonConfidence">99.4% (F1: 0.982)</span>
   </div>
 </div>
 
 <!-- ============ EMERGENCY BANNER ============ -->
 <div class="emergency-banner" id="emergencyBanner">
-  <span class="emergency-icon">⚠️</span>
+  <span class="emergency-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </span>
   <span id="emergencyText">EMERGENCY: Kualitas output melewati ambang batas!</span>
-  <span class="emergency-icon">⚠️</span>
+  <span class="emergency-icon">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </svg>
+  </span>
 </div>
 
 <!-- ============ MAIN CONTENT ============ -->
@@ -123,16 +140,29 @@
       <div class="ai-advisory-header">
         <div class="ai-brain-badge">
           <span class="pulse-ring"></span>
-          <span class="ai-chip-icon">🧠</span>
-          <strong>VANDER-AI Neural Reasoning Engine</strong>
+          <span class="ai-chip-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2"/>
+              <rect x="9" y="9" width="6" height="6"/>
+              <line x1="9" y1="1" x2="9" y2="4"/>
+              <line x1="15" y1="1" x2="15" y2="4"/>
+              <line x1="9" y1="20" x2="9" y2="23"/>
+              <line x1="15" y1="20" x2="15" y2="23"/>
+              <line x1="20" y1="9" x2="23" y2="9"/>
+              <line x1="20" y1="14" x2="23" y2="14"/>
+              <line x1="1" y1="9" x2="4" y2="9"/>
+              <line x1="1" y1="14" x2="4" y2="14"/>
+            </svg>
+          </span>
+          <strong>VANDER-AI Neural Reasoning &amp; Advisory Engine</strong>
         </div>
         <div class="ai-confidence-pill">
           <span>Inference Confidence:</span>
-          <strong id="aiConfidenceVal">99.4%</strong>
+          <strong id="aiConfidenceVal" class="font-mono">99.4%</strong>
         </div>
       </div>
       <div class="ai-advisory-body">
-        <div class="ai-stream-text" id="aiStreamText">
+        <div class="ai-stream-text font-mono" id="aiStreamText">
           <span class="typing-cursor">&gt;</span> <span id="aiReasoningMsg">Menginisialisasi analisis kinetika Thomas &amp; gaya Van der Waals... Seluruh situs aktif biochar termonitor stabil.</span>
         </div>
         <div class="ai-diagnostics-row">
@@ -142,11 +172,11 @@
           </div>
           <div class="diag-item">
             <span class="diag-label">Massa Biochar Aktif:</span>
-            <span class="diag-val">125.0 kg (Pyrolysis 500°C)</span>
+            <span class="diag-val font-mono">125.0 kg (Pyrolysis 500°C)</span>
           </div>
           <div class="diag-item">
             <span class="diag-label">Reduksi Cr(VI) Kinetika:</span>
-            <span class="diag-val text-success" id="diagRedox">Pseudo-Second Order (k₂: 0.042)</span>
+            <span class="diag-val text-success font-mono" id="diagRedox">Pseudo-Second Order (k₂: 0.042)</span>
           </div>
           <div class="diag-item">
             <span class="diag-label">Safety Interlock:</span>
@@ -160,68 +190,115 @@
   <!-- SECTION: Summary Metric Cards -->
   <section class="section metrics-section">
     <div class="section-title">
-      <h2>📊 Ringkasan Metrik</h2>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="20" x2="18" y2="10"/>
+          <line x1="12" y1="20" x2="12" y2="4"/>
+          <line x1="6" y1="20" x2="6" y2="14"/>
+        </svg>
+        Ringkasan Metrik Operasional (Process KPIs)
+      </h2>
     </div>
     <div class="metrics-grid">
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #0ea5e9, #0284c7);">💧</div>
+        <div class="metric-icon-scada icon-cyan">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+          </svg>
+        </div>
         <div class="metric-info">
           <span class="metric-label">Total Air Didaur Ulang</span>
-          <span class="metric-value" id="metricRecycled">0 L</span>
+          <span class="metric-value font-mono" id="metricRecycled">0 L</span>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #10b981, #059669);">✅</div>
+        <div class="metric-icon-scada icon-emerald">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
         <div class="metric-info">
           <span class="metric-label">Efisiensi Filtrasi</span>
-          <span class="metric-value" id="metricEfficiency">0%</span>
+          <span class="metric-value font-mono" id="metricEfficiency">0%</span>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #f59e0b, #d97706);">⏱️</div>
+        <div class="metric-icon-scada icon-amber">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <polyline points="12 6 12 12 16 14"/>
+          </svg>
+        </div>
         <div class="metric-info">
-          <span class="metric-label">Waktu Operasi</span>
-          <span class="metric-value" id="metricUptime">00:00:00</span>
+          <span class="metric-label">Waktu Operasi Kolom</span>
+          <span class="metric-value font-mono" id="metricUptime">00:00:00</span>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #8b5cf6, #7c3aed);">🧪</div>
+        <div class="metric-icon-scada icon-purple">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <ellipse cx="12" cy="5" rx="9" ry="3"/>
+            <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+            <path d="M3 12c0 1.66 4 3 9 3s9-1.34 9-3"/>
+          </svg>
+        </div>
         <div class="metric-info">
-          <span class="metric-label">Kapasitas Adsorpsi</span>
-          <span class="metric-value" id="metricCapacity">0%</span>
+          <span class="metric-label">Kapasitas Adsorpsi Biochar</span>
+          <span class="metric-value font-mono" id="metricCapacity">0%</span>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">💰</div>
+        <div class="metric-icon-scada icon-blue">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="1" x2="12" y2="23"/>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+          </svg>
+        </div>
         <div class="metric-info">
-          <span class="metric-label">Penghematan Biaya</span>
-          <span class="metric-value" id="metricSavings">Rp 0</span>
+          <span class="metric-label">Estimasi Penghematan</span>
+          <span class="metric-value font-mono" id="metricSavings">Rp 0</span>
         </div>
       </div>
       <div class="metric-card">
-        <div class="metric-icon" style="background: linear-gradient(135deg, #22c55e, #16a34a);">🌿</div>
+        <div class="metric-icon-scada icon-green">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/>
+            <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/>
+          </svg>
+        </div>
         <div class="metric-info">
           <span class="metric-label">Emisi CO₂ Ditekan</span>
-          <span class="metric-value" id="metricCO2">0 kg</span>
+          <span class="metric-value font-mono" id="metricCO2">0 kg</span>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- SECTION: Water Visualization -->
+  <!-- SECTION: Water Visualization & Spectrophotometry -->
   <section class="section water-section">
     <div class="section-title">
-      <h2>🔬 Visualisasi Proses Filtrasi &amp; Nephelometer Optik</h2>
-      <span class="viz-subtitle">Pemindaian Spektrofotometri &amp; Hamburan Cahaya (ISO 7027 Turbidity Standard)</span>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+        </svg>
+        Nephelometric Laser Attenuation &amp; Fluid Clarity Diagnostics
+      </h2>
+      <span class="viz-subtitle">Pemindaian Spektrofotometri &amp; Hamburan Cahaya (ISO 7027 Turbidity Standard &bull; &lambda; = 860 nm)</span>
     </div>
     <div class="water-viz-container">
       <!-- LEFT: Dirty Water Beaker -->
       <div class="beaker-wrapper">
-        <div class="beaker-label">SEBELUM</div>
-        <div class="beaker-sublabel">Air Limbah Industri Mentah</div>
+        <div class="beaker-tag-row">
+          <span class="beaker-label">SAMPLING INLET [FIT-101]</span>
+          <span class="status-indicator-pill danger">RAW INFLUENT</span>
+        </div>
+        <div class="beaker-sublabel">Air Limbah Industri Tekstil Mentah</div>
         <div class="beaker" id="beakerDirty">
           <div class="beaker-glass">
-            <div class="laser-scanner" id="dirtyLaser" title="Sinar Laser Nephelometrik (650 nm)"></div>
+            <div class="laser-scanner" id="dirtyLaser" title="Sinar Laser Nephelometrik (650 nm NIR)"></div>
             <div class="laser-scatter-cone dirty-cone" id="dirtyScatterCone"></div>
             <div class="water dirty-water" id="dirtyWater">
               <div class="wave"></div>
@@ -230,7 +307,7 @@
                 <!-- JS will add particle elements -->
               </div>
             </div>
-            <div class="beaker-markings">
+            <div class="beaker-markings font-mono">
               <span>1000 mL</span>
               <span>750 mL</span>
               <span>500 mL</span>
@@ -239,13 +316,13 @@
           </div>
           <div class="beaker-base"></div>
         </div>
-        <div class="optical-badge danger" id="dirtyOpticalBadge">
+        <div class="optical-badge danger font-mono" id="dirtyOpticalBadge">
           <span class="opt-dot"></span>
           <span id="dirtyOpticalText">Hamburan Cahaya: 96.8% &bull; Transmitansi: 3.2%</span>
         </div>
         <div class="water-status dirty-status">
           <span class="status-badge danger">DARK &amp; TURBID</span>
-          <div class="water-params">
+          <div class="water-params font-mono">
             <span>pH: <strong id="dirtyPH">3.2</strong></span>
             <span>NTU: <strong id="dirtyNTU">450</strong></span>
           </div>
@@ -256,20 +333,27 @@
       <div class="process-indicator">
         <div class="process-arrow">
           <div class="arrow-line"></div>
-          <div class="arrow-icon">⚗️</div>
+          <div class="arrow-icon-scada">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </div>
           <div class="arrow-line"></div>
         </div>
-        <div class="process-label">Biochar<br>Adsorbent Column</div>
-        <div class="process-detail">Van der Waals &bull; Redoks &bull; Kemisorpsi</div>
+        <div class="process-label">Biochar Adsorbent Column</div>
+        <div class="process-detail">Van der Waals &bull; Redoks &bull; Kemisorpsi Monolayer</div>
       </div>
 
       <!-- RIGHT: Clean Water Beaker -->
       <div class="beaker-wrapper">
-        <div class="beaker-label">SESUDAH</div>
-        <div class="beaker-sublabel">Air Bersih Hasil Adsorpsi Biochar</div>
+        <div class="beaker-tag-row">
+          <span class="beaker-label">SAMPLING OUTLET [AIT-202]</span>
+          <span class="status-indicator-pill success">PERMEATE EFFLUENT</span>
+        </div>
+        <div class="beaker-sublabel">Air Bersih Hasil Adsorpsi Biochar Kotoran Ayam</div>
         <div class="beaker" id="beakerClean">
           <div class="beaker-glass">
-            <div class="laser-scanner clean-laser" id="cleanLaser" title="Sinar Laser Nephelometrik (650 nm)"></div>
+            <div class="laser-scanner clean-laser" id="cleanLaser" title="Sinar Laser Nephelometrik (650 nm NIR)"></div>
             <div class="laser-scatter-cone clean-cone" id="cleanScatterCone"></div>
             <div class="water clean-water" id="cleanWater">
               <div class="wave"></div>
@@ -278,7 +362,7 @@
                 <!-- JS will add sparkle elements -->
               </div>
             </div>
-            <div class="beaker-markings">
+            <div class="beaker-markings font-mono">
               <span>1000 mL</span>
               <span>750 mL</span>
               <span>500 mL</span>
@@ -287,13 +371,13 @@
           </div>
           <div class="beaker-base"></div>
         </div>
-        <div class="optical-badge success" id="cleanOpticalBadge">
+        <div class="optical-badge success font-mono" id="cleanOpticalBadge">
           <span class="opt-dot"></span>
           <span id="cleanOpticalText">Transmitansi Optik: 99.2% &bull; Hamburan Cahaya: 0.8%</span>
         </div>
         <div class="water-status clean-status">
           <span class="status-badge success">CLEAR &amp; CLEAN</span>
-          <div class="water-params">
+          <div class="water-params font-mono">
             <span>pH: <strong id="cleanPH">7.0</strong></span>
             <span>NTU: <strong id="cleanNTU">8</strong></span>
           </div>
@@ -305,47 +389,59 @@
   <!-- SECTION: Industrial SCADA Digital Twin Synoptic Flow Diagram -->
   <section class="section scada-synoptic-section">
     <div class="section-title">
-      <h2>🏭 Digital Twin: Reaktor Adsorben Kolom Kontinu (P&amp;ID)</h2>
-      <span class="demo-badge">Aliran Proses Industri Real-Time</span>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+          <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+        </svg>
+        Digital Twin: Continuous Fixed-Bed Column Adsorption Reactor (P&amp;ID)
+      </h2>
+      <span class="demo-badge font-mono">ISA-5.1 PROCESS FLOW SYNOPTIC</span>
     </div>
     <div class="scada-diagram-card">
       <div class="scada-flow-wrapper">
         
         <!-- Node 1: Feed Pump P-101 -->
         <div class="scada-node node-pump">
-          <div class="node-tag">PUMP P-101</div>
+          <div class="node-tag font-mono">PUMP P-101</div>
           <div class="pump-icon-wrap" id="pumpIconWrap">
-            <span class="pump-symbol">⚙️</span>
+            <span class="pump-symbol">
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M12 3v9l6 3"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </span>
           </div>
           <div class="node-meta">
             <span class="node-state running" id="pumpState">RUNNING</span>
-            <small id="pumpSpeed">Flow: 75.0 L/jam</small>
+            <small id="pumpSpeed" class="font-mono">Flow: 75.0 L/jam</small>
           </div>
         </div>
 
         <!-- Pipe Connector 1 -->
         <div class="scada-pipe-line active-line">
           <div class="pipe-liquid in-flow"></div>
-          <span class="pipe-sensor-tag">FIT-101 / AIT-101</span>
+          <span class="pipe-sensor-tag font-mono">FIT-101 / AIT-101</span>
         </div>
 
         <!-- Node 2: Biochar Reactor Column R-201 -->
         <div class="scada-node node-reactor">
-          <div class="node-tag">REACTOR R-201 (BIOCHAR COLUMN)</div>
+          <div class="node-tag font-mono">REACTOR R-201 (BIOCHAR COLUMN)</div>
           <div class="column-visual">
-            <div class="column-header-cap">Bed Height: 120 cm</div>
+            <div class="column-header-cap font-mono">Bed Height: 120 cm &bull; Downflow</div>
             <div class="column-bed-body">
               <div class="mtz-zone" id="mtzZoneBar" style="height: 15%;" title="Mass Transfer Zone (MTZ)">
-                <span class="mtz-label">Saturasi: <span id="mtzPercent">15%</span></span>
+                <span class="mtz-label font-mono">MTZ Saturasi: <span id="mtzPercent">15%</span></span>
               </div>
               <div class="biochar-active-bed">
                 <div class="biochar-grains"></div>
                 <span class="bed-text">Chicken Manure Biochar Layer (500°C)</span>
               </div>
             </div>
-            <div class="column-footer-cap">
-              <span>ΔP: <strong id="bedPressure">0.18 bar</strong></span>
-              <span>T: <strong>28.4°C</strong></span>
+            <div class="column-footer-cap font-mono">
+              <span>&Delta;P: <strong id="bedPressure">0.18 bar</strong></span>
+              <span>Bed Temp: <strong>28.4°C</strong></span>
             </div>
           </div>
         </div>
@@ -353,27 +449,34 @@
         <!-- Pipe Connector 2 -->
         <div class="scada-pipe-line active-line">
           <div class="pipe-liquid out-flow"></div>
-          <span class="pipe-sensor-tag">TURB-201 / AIT-202</span>
+          <span class="pipe-sensor-tag font-mono">TURB-201 / AIT-202</span>
         </div>
 
         <!-- Node 3: Motorized 3-Way Valve MOV-301 -->
         <div class="scada-node node-valve">
-          <div class="node-tag">VALVE MOV-301 (ACTUATOR)</div>
+          <div class="node-tag font-mono">VALVE MOV-301 (ACTUATOR)</div>
           <div class="valve-actuator-box">
-            <div class="valve-visual-symbol" id="scadaValveIcon">🚰</div>
-            <div class="valve-direction-lines">
+            <div class="valve-visual-symbol" id="scadaValveIcon">
+              <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="4 6 12 12 4 18 4 6"/>
+                <polygon points="20 6 12 12 20 18 20 6"/>
+                <line x1="12" y1="12" x2="12" y2="4"/>
+                <circle cx="12" cy="3" r="2"/>
+              </svg>
+            </div>
+            <div class="valve-direction-lines font-mono">
               <div class="stream-branch stream-river active" id="streamRiver">
                 <span class="stream-dot"></span>
-                <span class="stream-label">Ke Sungai (Normal)</span>
+                <span class="stream-label">Permeate Discharge (Sungai)</span>
               </div>
               <div class="stream-branch stream-retention" id="streamRetention">
                 <span class="stream-dot"></span>
-                <span class="stream-label">Tangki Retensi (Bypass)</span>
+                <span class="stream-label">Tangki Retensi (Recirculation)</span>
               </div>
             </div>
           </div>
           <div class="node-meta">
-            <span class="node-state open" id="scadaValveState">RIVER DISCHARGE OPEN</span>
+            <span class="node-state open font-mono" id="scadaValveState">RIVER DISCHARGE OPEN</span>
           </div>
         </div>
 
@@ -387,33 +490,39 @@
       <!-- INPUT PANEL -->
       <div class="panel panel-input">
         <div class="panel-header">
-          <h3>📥 Panel Input — Air Limbah Mentah</h3>
-          <span class="panel-badge danger">RAW</span>
+          <h3>
+            <svg class="panel-header-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="7 13 12 18 17 13"/>
+              <polyline points="7 6 12 11 17 6"/>
+            </svg>
+            Panel Input — Air Limbah Mentah (Influent)
+          </h3>
+          <span class="panel-badge danger font-mono">RAW FEED</span>
         </div>
         <div class="panel-body">
           <div class="sensor-row">
-            <span class="sensor-label">Flow Rate</span>
-            <span class="sensor-value" id="inputFlow">0</span>
+            <span class="sensor-label">Flow Rate (FIT-101)</span>
+            <span class="sensor-value font-mono" id="inputFlow">0</span>
             <span class="sensor-unit">L/jam</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">pH</span>
-            <span class="sensor-value" id="inputPH">0</span>
+            <span class="sensor-label">pH (AIT-101A)</span>
+            <span class="sensor-value font-mono" id="inputPH">0</span>
             <span class="sensor-unit">-</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Turbidity</span>
-            <span class="sensor-value" id="inputTurbidity">0</span>
+            <span class="sensor-label">Turbidity (AIT-101B)</span>
+            <span class="sensor-value font-mono" id="inputTurbidity">0</span>
             <span class="sensor-unit">NTU</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Electrical Conductivity</span>
-            <span class="sensor-value" id="inputEC">0</span>
-            <span class="sensor-unit">µS/cm</span>
+            <span class="sensor-label">Electrical Conductivity (AIT-101C)</span>
+            <span class="sensor-value font-mono" id="inputEC">0</span>
+            <span class="sensor-unit">&micro;S/cm</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Warna Air</span>
-            <span class="sensor-value color-indicator dirty-color" id="inputColor">DARK & TURBID</span>
+            <span class="sensor-label">Warna Fluida Spektra</span>
+            <span class="sensor-value color-indicator dirty-color font-mono" id="inputColor">DARK &amp; TURBID</span>
             <span class="sensor-unit"></span>
           </div>
         </div>
@@ -422,51 +531,64 @@
       <!-- OUTPUT PANEL -->
       <div class="panel panel-output">
         <div class="panel-header">
-          <h3>📤 Panel Output — Air Hasil Filtrasi</h3>
-          <span class="panel-badge success">FILTERED</span>
+          <h3>
+            <svg class="panel-header-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="17 11 12 6 7 11"/>
+              <polyline points="17 18 12 13 7 18"/>
+            </svg>
+            Panel Output — Air Hasil Filtrasi (Effluent)
+          </h3>
+          <span class="panel-badge success font-mono">PERMEATE</span>
         </div>
         <div class="panel-body">
           <div class="sensor-row">
-            <span class="sensor-label">Flow Rate</span>
-            <span class="sensor-value" id="outputFlow">0</span>
+            <span class="sensor-label">Flow Rate (FIT-201)</span>
+            <span class="sensor-value font-mono" id="outputFlow">0</span>
             <span class="sensor-unit">L/jam</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">pH</span>
-            <span class="sensor-value" id="outputPH">0</span>
+            <span class="sensor-label">pH (AIT-202A)</span>
+            <span class="sensor-value font-mono" id="outputPH">0</span>
             <span class="sensor-unit">-</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Turbidity</span>
-            <span class="sensor-value" id="outputTurbidity">0</span>
+            <span class="sensor-label">Turbidity (AIT-202B)</span>
+            <span class="sensor-value font-mono" id="outputTurbidity">0</span>
             <span class="sensor-unit">NTU</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Electrical Conductivity</span>
-            <span class="sensor-value" id="outputEC">0</span>
-            <span class="sensor-unit">µS/cm</span>
+            <span class="sensor-label">Electrical Conductivity (AIT-202C)</span>
+            <span class="sensor-value font-mono" id="outputEC">0</span>
+            <span class="sensor-unit">&micro;S/cm</span>
           </div>
           <div class="sensor-row">
-            <span class="sensor-label">Warna Air</span>
-            <span class="sensor-value color-indicator clean-color" id="outputColor">CLEAR & CLEAN</span>
+            <span class="sensor-label">Warna Fluida Spektra</span>
+            <span class="sensor-value color-indicator clean-color font-mono" id="outputColor">CLEAR &amp; CLEAN</span>
             <span class="sensor-unit"></span>
           </div>
           <div class="removal-efficiency">
-            <h4>📊 Efisiensi Removal</h4>
+            <h4>
+              <svg class="sub-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="18" y1="20" x2="18" y2="10"/>
+                <line x1="12" y1="20" x2="12" y2="4"/>
+                <line x1="6" y1="20" x2="6" y2="14"/>
+              </svg>
+              Efisiensi Removal (Kinetika Adsorpsi)
+            </h4>
             <div class="removal-bar-item">
-              <span class="removal-label">Turbidity</span>
+              <span class="removal-label">Turbidity Removal</span>
               <div class="removal-bar"><div class="removal-fill" id="removalTurbidity" style="width:97%"></div></div>
-              <span class="removal-pct" id="removalTurbidityPct">97%</span>
+              <span class="removal-pct font-mono" id="removalTurbidityPct">97%</span>
             </div>
             <div class="removal-bar-item">
-              <span class="removal-label">Konduktivitas</span>
+              <span class="removal-label">TDS / Konduktivitas</span>
               <div class="removal-bar"><div class="removal-fill" id="removalEC" style="width:88%"></div></div>
-              <span class="removal-pct" id="removalECPct">88%</span>
+              <span class="removal-pct font-mono" id="removalECPct">88%</span>
             </div>
             <div class="removal-bar-item">
-              <span class="removal-label">pH Adjustment</span>
+              <span class="removal-label">pH Normalization</span>
               <div class="removal-bar"><div class="removal-fill ph-fill" id="removalPH" style="width:90%"></div></div>
-              <span class="removal-pct" id="removalPHPct">90%</span>
+              <span class="removal-pct font-mono" id="removalPHPct">90%</span>
             </div>
           </div>
         </div>
@@ -477,45 +599,78 @@
   <!-- SECTION: AI Modules -->
   <section class="section ai-section">
     <div class="section-title">
-      <h2>🤖 AI-Powered Modules</h2>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Core Analytical &amp; Predictive Modules (Kinetics &amp; Mass Transfer)
+      </h2>
     </div>
     <div class="science-banner">
       <div class="science-item">
-        <span class="science-icon">⚛️</span>
+        <span class="science-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"/>
+            <path d="M12 2a10 10 0 0 0 0 20M12 2a10 10 0 0 1 0 20"/>
+            <ellipse cx="12" cy="12" rx="10" ry="4"/>
+          </svg>
+        </span>
         <div class="science-desc">
           <div class="science-header">
             <strong>Gaya Van der Waals</strong>
-            <span class="formula-badge">E<sub>vdW</sub> ∝ -C/r⁶</span>
+            <span class="formula-badge font-mono">E<sub>vdW</sub> &prop; -C/r⁶</span>
           </div>
           <small>Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada pori mikro-meso biochar kotoran ayam.</small>
         </div>
       </div>
       <div class="science-item">
-        <span class="science-icon">🔄</span>
+        <span class="science-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10"/>
+            <polyline points="1 20 1 14 7 14"/>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+          </svg>
+        </span>
         <div class="science-desc">
           <div class="science-header">
             <strong>Reaksi Redoks</strong>
-            <span class="formula-badge">Cr⁶⁺ + 3e⁻ → Cr³⁺</span>
+            <span class="formula-badge font-mono">Cr⁶⁺ + 3e⁻ &rarr; Cr³⁺</span>
           </div>
-          <small>Reduksi ion kromium heksavalen karsinogenik menjadi ion trivalen stabil &amp; terendapkan oleh biochar.</small>
+          <small>Reduksi ion kromium heksavalen karsinogenik menjadi ion trivalen stabil &amp; terendapkan oleh gugus donor elektron biochar.</small>
         </div>
       </div>
       <div class="science-item">
-        <span class="science-icon">🧬</span>
+        <span class="science-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="6" cy="6" r="3"/>
+            <circle cx="18" cy="6" r="3"/>
+            <circle cx="12" cy="18" r="3"/>
+            <line x1="8.5" y1="7.5" x2="15.5" y2="7.5"/>
+            <line x1="7.5" y1="8.5" x2="10.5" y2="15.5"/>
+            <line x1="16.5" y1="8.5" x2="13.5" y2="15.5"/>
+          </svg>
+        </span>
         <div class="science-desc">
           <div class="science-header">
             <strong>Afinitas Gugus Fungsi</strong>
-            <span class="formula-badge">-COOH, -OH, -NH₂</span>
+            <span class="formula-badge font-mono">-COOH, -OH, -NH₂</span>
           </div>
           <small>Kompleksasi permukaan mengikat kation logam berat (Pb²⁺, Cd²⁺, Cu²⁺) secara selektif &amp; ireversibel.</small>
         </div>
       </div>
       <div class="science-item">
-        <span class="science-icon">🔗</span>
+        <span class="science-icon">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+          </svg>
+        </span>
         <div class="science-desc">
           <div class="science-header">
             <strong>Kemisorpsi Monolayer</strong>
-            <span class="formula-badge">ΔG° &lt; 0 (Spontan)</span>
+            <span class="formula-badge font-mono">&Delta;G&deg; &lt; 0 (Spontan)</span>
           </div>
           <small>Ikatan kovalen koordinasi monolayer polutan pada situs aktif karbon pirolisis 500°C.</small>
         </div>
@@ -526,17 +681,22 @@
       <!-- Module A: Breakthrough Predictor -->
       <div class="ai-card" id="breakthroughModule">
         <div class="ai-card-header">
-          <span class="ai-icon">🔮</span>
+          <span class="ai-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3v18h18"/>
+              <path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"/>
+            </svg>
+          </span>
           <div class="ai-title-wrap">
             <h3>Breakthrough Predictor</h3>
-            <span class="ai-model-tag">Model Kinetika: Yoon-Nelson &amp; Thomas</span>
+            <span class="ai-model-tag font-mono">Model Kinetika: Yoon-Nelson &amp; Thomas</span>
           </div>
-          <span class="ai-status" id="breakthroughStatus">OPTIMAL</span>
+          <span class="ai-status font-mono" id="breakthroughStatus">OPTIMAL</span>
         </div>
         <div class="ai-card-body">
           <div class="capacity-section">
-            <div class="capacity-label">
-              <span>Kapasitas Adsorpsi Biochar</span>
+            <div class="capacity-label font-mono">
+              <span>Kapasitas Adsorpsi Biochar Tersisa</span>
               <span id="capacityPercent">85%</span>
             </div>
             <div class="capacity-bar">
@@ -545,9 +705,9 @@
           </div>
           <div class="countdown-section">
             <div class="countdown-label">Filter diprediksi jenuh dalam:</div>
-            <div class="countdown-value" id="countdownValue">48 jam 30 menit</div>
+            <div class="countdown-value font-mono" id="countdownValue">48 jam 30 menit</div>
           </div>
-          <div class="kinetic-params-grid">
+          <div class="kinetic-params-grid font-mono">
             <div class="k-item" title="Konstanta Laju Model Thomas">
               <span class="k-label">k<sub>Th</sub> (Thomas):</span>
               <span class="k-val">0.038 mL/mg&bull;min</span>
@@ -574,27 +734,44 @@
       <!-- Module B: Mass Balance -->
       <div class="ai-card" id="massBalanceModule">
         <div class="ai-card-header">
-          <span class="ai-icon">⚖️</span>
-          <h3>Mass Balance & Volume Tracker</h3>
+          <span class="ai-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+              <path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/>
+              <path d="M7 21h10"/>
+              <path d="M12 3v18"/>
+              <path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/>
+            </svg>
+          </span>
+          <div class="ai-title-wrap">
+            <h3>Mass Balance &amp; Hydraulic Continuity Tracker</h3>
+            <span class="ai-model-tag font-mono">Conservation of Mass: Q_in = Q_out + &Delta;S</span>
+          </div>
         </div>
         <div class="ai-card-body">
           <div class="balance-row">
             <div class="balance-item">
-              <span class="balance-label">Volume Masuk</span>
-              <span class="balance-value" id="volumeIn">0 L</span>
+              <span class="balance-label">Kumulatif Volume Masuk</span>
+              <span class="balance-value font-mono" id="volumeIn">0 L</span>
             </div>
             <div class="balance-item">
-              <span class="balance-label">Volume Keluar</span>
-              <span class="balance-value" id="volumeOut">0 L</span>
+              <span class="balance-label">Kumulatif Volume Keluar</span>
+              <span class="balance-value font-mono" id="volumeOut">0 L</span>
             </div>
           </div>
           <div class="efficiency-row">
-            <span class="efficiency-label">Efisiensi Volumetrik:</span>
-            <span class="efficiency-value" id="volEfficiency">0%</span>
+            <span class="efficiency-label">Efisiensi Volumetrik Kontinuitas:</span>
+            <span class="efficiency-value font-mono" id="volEfficiency">0%</span>
           </div>
           <div class="clogging-alert" id="cloggingAlert">
-            <span class="clogging-icon">🚨</span>
-            <span>Indikasi penyumbatan (clogging), lakukan backwash!</span>
+            <span class="clogging-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"/>
+                <line x1="12" y1="8" x2="12" y2="12"/>
+                <line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+            </span>
+            <span>Indikasi penyumbatan pori (bed clogging), lakukan backwash regenerasi!</span>
           </div>
         </div>
       </div>
@@ -602,22 +779,29 @@
       <!-- Module C: Quality Assurance -->
       <div class="ai-card" id="qualityModule">
         <div class="ai-card-header">
-          <span class="ai-icon">🛡️</span>
-          <h3>Automated Quality Assurance</h3>
+          <span class="ai-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+          </span>
+          <div class="ai-title-wrap">
+            <h3>Automated Quality Assurance &amp; Interlock</h3>
+            <span class="ai-model-tag font-mono">Permeate Compliance: PP RI No. 22 / 2021</span>
+          </div>
         </div>
         <div class="ai-card-body">
           <div class="quality-indicators">
             <div class="quality-item">
-              <span class="quality-label">pH Output</span>
-              <span class="quality-status" id="qaPH">✅ Normal</span>
+              <span class="quality-label">pH Effluent (6.5 - 8.5)</span>
+              <span class="quality-status font-mono" id="qaPH">NOMINAL</span>
             </div>
             <div class="quality-item">
-              <span class="quality-label">Turbidity Output</span>
-              <span class="quality-status" id="qaTurbidity">✅ Normal</span>
+              <span class="quality-label">Turbidity (&le; 25 NTU)</span>
+              <span class="quality-status font-mono" id="qaTurbidity">NOMINAL</span>
             </div>
             <div class="quality-item">
-              <span class="quality-label">EC Output</span>
-              <span class="quality-status" id="qaEC">✅ Normal</span>
+              <span class="quality-label">EC Effluent (&le; 500 &micro;S)</span>
+              <span class="quality-status font-mono" id="qaEC">NOMINAL</span>
             </div>
           </div>
           <div class="valve-status" id="valveStatus">
@@ -625,7 +809,7 @@
               <span class="valve-light green" id="valveLight"></span>
             </div>
             <div class="valve-text">
-              <span id="valveLabel">Katup menuju sungai: TERBUKA</span>
+              <span id="valveLabel" class="font-mono">Katup menuju sungai: TERBUKA</span>
               <span id="valveDetail" class="valve-detail">Air output memenuhi standar baku mutu</span>
             </div>
           </div>
@@ -635,23 +819,30 @@
       <!-- Module D: Eco-Efficiency -->
       <div class="ai-card" id="ecoModule">
         <div class="ai-card-header">
-          <span class="ai-icon">🌱</span>
-          <h3>Smart Eco-Efficiency Calculator</h3>
+          <span class="ai-icon">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+            </svg>
+          </span>
+          <div class="ai-title-wrap">
+            <h3>Smart Eco-Efficiency &amp; ESG Calculator</h3>
+            <span class="ai-model-tag font-mono">Waste-to-Resource Circular Metric</span>
+          </div>
         </div>
         <div class="ai-card-body">
           <div class="eco-grid">
             <div class="eco-item">
-              <span class="eco-value" id="ecoWater">0</span>
+              <span class="eco-value font-mono" id="ecoWater">0</span>
               <span class="eco-unit">Liter</span>
               <span class="eco-label">Air Bersih Didaur Ulang</span>
             </div>
             <div class="eco-item">
-              <span class="eco-value" id="ecoCost">Rp 0</span>
-              <span class="eco-unit"></span>
-              <span class="eco-label">Penghematan Biaya</span>
+              <span class="eco-value font-mono" id="ecoCost">Rp 0</span>
+              <span class="eco-unit">Rupiah</span>
+              <span class="eco-label">Penghematan Biaya Air PDAM</span>
             </div>
             <div class="eco-item">
-              <span class="eco-value" id="ecoCO2">0</span>
+              <span class="eco-value font-mono" id="ecoCO2">0</span>
               <span class="eco-unit">kg CO₂</span>
               <span class="eco-label">Emisi Karbon Ditekan</span>
             </div>
@@ -665,68 +856,75 @@
   <!-- SECTION: Gauges -->
   <section class="section gauges-section">
     <div class="section-title">
-      <h2>🎛️ Gauge Meter</h2>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M16.24 7.76a6 6 0 1 0 0 8.49m-8.48 0a6 6 0 0 1 0-8.49"/>
+          <line x1="12" y1="12" x2="12" y2="8"/>
+        </svg>
+        Analog Field Instrumentation (Gauges)
+      </h2>
     </div>
     <div class="gauges-grid">
       <div class="gauge-card">
-        <h4>pH Output</h4>
+        <h4>pH Effluent (AIT-202A)</h4>
         <div class="gauge-container" id="gaugePH">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradPH)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugePHArc" stroke-dasharray="251.2" stroke-dashoffset="125.6"/>
             <defs>
               <linearGradient id="gaugeGradPH" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#ef4444"/>
-                <stop offset="35%" style="stop-color:#f59e0b"/>
-                <stop offset="50%" style="stop-color:#10b981"/>
-                <stop offset="65%" style="stop-color:#f59e0b"/>
-                <stop offset="100%" style="stop-color:#ef4444"/>
+                <stop offset="0%" stop-color="#ef4444"/>
+                <stop offset="35%" stop-color="#f59e0b"/>
+                <stop offset="50%" stop-color="#10b981"/>
+                <stop offset="65%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#ef4444"/>
               </linearGradient>
             </defs>
-            <text x="100" y="100" text-anchor="middle" class="gauge-value-text" id="gaugePHText">7.0</text>
+            <text x="100" y="100" text-anchor="middle" class="gauge-value-text font-mono" id="gaugePHText">7.0</text>
             <text x="100" y="118" text-anchor="middle" class="gauge-label-text">pH</text>
-            <text x="20" y="128" text-anchor="middle" class="gauge-min-text">0</text>
-            <text x="180" y="128" text-anchor="middle" class="gauge-max-text">14</text>
+            <text x="20" y="128" text-anchor="middle" class="gauge-min-text font-mono">0</text>
+            <text x="180" y="128" text-anchor="middle" class="gauge-max-text font-mono">14</text>
           </svg>
         </div>
       </div>
       <div class="gauge-card">
-        <h4>Turbidity Output</h4>
+        <h4>Turbidity Effluent (AIT-202B)</h4>
         <div class="gauge-container" id="gaugeTurbidity">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradTurb)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugeTurbidityArc" stroke-dasharray="251.2" stroke-dashoffset="226.08"/>
             <defs>
               <linearGradient id="gaugeGradTurb" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#10b981"/>
-                <stop offset="50%" style="stop-color:#f59e0b"/>
-                <stop offset="100%" style="stop-color:#ef4444"/>
+                <stop offset="0%" stop-color="#10b981"/>
+                <stop offset="50%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#ef4444"/>
               </linearGradient>
             </defs>
-            <text x="100" y="100" text-anchor="middle" class="gauge-value-text" id="gaugeTurbidityText">8</text>
+            <text x="100" y="100" text-anchor="middle" class="gauge-value-text font-mono" id="gaugeTurbidityText">8</text>
             <text x="100" y="118" text-anchor="middle" class="gauge-label-text">NTU</text>
-            <text x="20" y="128" text-anchor="middle" class="gauge-min-text">0</text>
-            <text x="180" y="128" text-anchor="middle" class="gauge-max-text">500</text>
+            <text x="20" y="128" text-anchor="middle" class="gauge-min-text font-mono">0</text>
+            <text x="180" y="128" text-anchor="middle" class="gauge-max-text font-mono">500</text>
           </svg>
         </div>
       </div>
       <div class="gauge-card">
-        <h4>EC Output</h4>
+        <h4>EC Effluent (AIT-202C)</h4>
         <div class="gauge-container" id="gaugeEC">
           <svg viewBox="0 0 200 130" class="gauge-svg">
-            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#e2e8f0" stroke-width="14" stroke-linecap="round"/>
+            <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="#1e293b" stroke-width="14" stroke-linecap="round"/>
             <path d="M20 120 A80 80 0 0 1 180 120" fill="none" stroke="url(#gaugeGradEC)" stroke-width="14" stroke-linecap="round" class="gauge-arc" id="gaugeECArc" stroke-dasharray="251.2" stroke-dashoffset="226.08"/>
             <defs>
               <linearGradient id="gaugeGradEC" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" style="stop-color:#10b981"/>
-                <stop offset="50%" style="stop-color:#f59e0b"/>
-                <stop offset="100%" style="stop-color:#ef4444"/>
+                <stop offset="0%" stop-color="#10b981"/>
+                <stop offset="50%" stop-color="#f59e0b"/>
+                <stop offset="100%" stop-color="#ef4444"/>
               </linearGradient>
             </defs>
-            <text x="100" y="100" text-anchor="middle" class="gauge-value-text" id="gaugeECText">350</text>
-            <text x="100" y="118" text-anchor="middle" class="gauge-label-text">µS/cm</text>
-            <text x="20" y="128" text-anchor="middle" class="gauge-min-text">0</text>
-            <text x="180" y="128" text-anchor="middle" class="gauge-max-text">5000</text>
+            <text x="100" y="100" text-anchor="middle" class="gauge-value-text font-mono" id="gaugeECText">350</text>
+            <text x="100" y="118" text-anchor="middle" class="gauge-label-text">&micro;S/cm</text>
+            <text x="20" y="128" text-anchor="middle" class="gauge-min-text font-mono">0</text>
+            <text x="180" y="128" text-anchor="middle" class="gauge-max-text font-mono">5000</text>
           </svg>
         </div>
       </div>
@@ -736,29 +934,35 @@
   <!-- SECTION: Real-time Charts -->
   <section class="section charts-section">
     <div class="section-title">
-      <h2>📈 Grafik Tren Real-time</h2>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/>
+          <polyline points="17 6 23 6 23 12"/>
+        </svg>
+        Real-Time Process Trend Historian
+      </h2>
     </div>
     <div class="charts-grid">
       <div class="chart-card">
-        <h4>pH — Input vs Output</h4>
+        <h4>pH Dynamic Trend — Influent vs Effluent</h4>
         <div class="chart-container">
           <canvas id="chartPH"></canvas>
         </div>
       </div>
       <div class="chart-card">
-        <h4>Turbidity — Input vs Output</h4>
+        <h4>Turbidity Dynamic Trend — Influent vs Effluent</h4>
         <div class="chart-container">
           <canvas id="chartTurbidity"></canvas>
         </div>
       </div>
       <div class="chart-card">
-        <h4>Electrical Conductivity — Input vs Output</h4>
+        <h4>Conductivity (EC) Dynamic Trend — Influent vs Effluent</h4>
         <div class="chart-container">
           <canvas id="chartEC"></canvas>
         </div>
       </div>
       <div class="chart-card">
-        <h4>Flow Rate — Input vs Output</h4>
+        <h4>Hydraulic Flow Dynamic Trend — FIT-101 vs FIT-201</h4>
         <div class="chart-container">
           <canvas id="chartFlow"></canvas>
         </div>
@@ -773,49 +977,56 @@
       <!-- Sensor Status -->
       <div class="panel">
         <div class="panel-header">
-          <h3>📡 Status Sensor</h3>
+          <h3>
+            <svg class="panel-header-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 11a9 9 0 0 1 9 9"/>
+              <path d="M4 4a16 16 0 0 1 16 16"/>
+              <circle cx="5" cy="19" r="1"/>
+            </svg>
+            Field Instrumentation Bus Status (ISA-SP50)
+          </h3>
         </div>
         <div class="panel-body">
           <div class="sensor-status-list" id="sensorStatusList">
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>pH Meter Input</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-101A [pH Meter Influent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>pH Meter Output</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-202A [pH Meter Effluent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>Turbidity Sensor Input</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-101B [Turbidity Sensor Influent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>Turbidity Sensor Output</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-202B [Turbidity Sensor Effluent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>EC Sensor Input</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-101C [EC Sensor Influent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>EC Sensor Output</span>
-              <span class="sensor-state">Aktif</span>
+              <span>AIT-202C [EC Sensor Effluent]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>Flow Meter Input</span>
-              <span class="sensor-state">Aktif</span>
+              <span>FIT-101 [Electromagnetic Flow Meter Inlet]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
             <div class="sensor-status-item">
               <span class="sensor-dot active"></span>
-              <span>Flow Meter Output</span>
-              <span class="sensor-state">Aktif</span>
+              <span>FIT-201 [Electromagnetic Flow Meter Outlet]</span>
+              <span class="sensor-state font-mono">ONLINE</span>
             </div>
           </div>
         </div>
@@ -824,59 +1035,101 @@
       <!-- Notifications -->
       <div class="panel">
         <div class="panel-header">
-          <h3>🔔 Notifikasi & Alert</h3>
-          <span class="notif-count" id="notifCount">0</span>
+          <h3>
+            <svg class="panel-header-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+            </svg>
+            Real-Time Alarm &amp; Event Historian (ISA-18.2)
+          </h3>
+          <span class="notif-count font-mono" id="notifCount">0</span>
         </div>
         <div class="panel-body">
-          <div class="notifications-list" id="notificationsList">
+          <div class="notifications-list font-mono" id="notificationsList">
             <!-- JS will populate -->
           </div>
         </div>
       </div>
 
     </div>
+  </section>
+
   <!-- SECTION: Simulation & Demo Controls -->
   <section class="section demo-section">
     <div class="section-title">
-      <h2>🎮 Panel Pengujian Simulasi (Live Demo)</h2>
-      <span class="demo-badge">Alat Uji Cepat Presentasi &amp; Penjurian</span>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+          <line x1="8" y1="21" x2="16" y2="21"/>
+          <line x1="12" y1="17" x2="12" y2="21"/>
+        </svg>
+        Simulation Testing &amp; Actuator Diagnostics
+      </h2>
+      <span class="demo-badge font-mono">SCADA TEST CONSOLE</span>
     </div>
     <div class="demo-controls-card">
-      <p class="demo-desc">Uji responsif sistem secara langsung saat presentasi: klik tombol di bawah untuk menyimulasikan skenario darurat, penyumbatan filter, regenerasi media biochar, atau unduh laporan:</p>
+      <p class="demo-desc">Validasi respons sistem secara interaktif: uji skenario darurat (*quality trip*), penyumbatan media (*hydraulic clogging*), regenerasi adsorben (*backwash cycle*), atau ekspor audit log telemetri:</p>
       <div class="demo-buttons-grid">
         <button type="button" class="demo-btn danger" id="btnTriggerEmergency">
-          <span class="btn-icon">⚡</span>
+          <span class="btn-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
+            </svg>
+          </span>
           <div class="btn-text">
-            <strong>Uji Anomali Kualitas</strong>
-            <small>Picu lonjakan kekeruhan &gt; batas (uji katup &amp; alarm)</small>
+            <strong>Injeksi Anomali (Trip)</strong>
+            <small>Picu lonjakan kekeruhan &gt; batas (uji interlock MOV-301 &amp; alarm)</small>
           </div>
         </button>
         <button type="button" class="demo-btn warning" id="btnTriggerClog">
-          <span class="btn-icon">🚨</span>
+          <span class="btn-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/>
+              <line x1="12" y1="9" x2="12" y2="13"/>
+              <line x1="12" y1="17" x2="12.01" y2="17"/>
+            </svg>
+          </span>
           <div class="btn-text">
-            <strong>Uji Clogging Filter</strong>
-            <small>Picu penurunan debit &gt; 15% (uji deteksi backwash)</small>
+            <strong>Simulasi Clogging Filter</strong>
+            <small>Picu penurunan debit &gt; 15% (uji deteksi backwash &amp; &Delta;P)</small>
           </div>
         </button>
         <button type="button" class="demo-btn success" id="btnResetNormal">
-          <span class="btn-icon">🔄</span>
+          <span class="btn-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="23 4 23 10 17 10"/>
+              <polyline points="1 20 1 14 7 14"/>
+              <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+            </svg>
+          </span>
           <div class="btn-text">
-            <strong>Reset &amp; Backwash Filter</strong>
-            <small>Regenerasi biochar 95%, buka katup sungai, normalkan</small>
+            <strong>Reset &amp; Siklus Backwash</strong>
+            <small>Regenerasi biochar 95%, buka katup sungai, pulihkan parameter</small>
           </div>
         </button>
         <button type="button" class="demo-btn primary" id="btnToggleSim">
-          <span class="btn-icon" id="simIcon">⏸️</span>
+          <span class="btn-icon" id="simIcon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="6" y="4" width="4" height="16"/>
+              <rect x="14" y="4" width="4" height="16"/>
+            </svg>
+          </span>
           <div class="btn-text">
-            <strong id="simStatusText">Jeda Simulasi</strong>
-            <small>Bekukan / lanjutkan pembaruan data telemetri</small>
+            <strong id="simStatusText">Jeda Telemetri</strong>
+            <small>Bekukan / lanjutkan streaming loop pembaruan sensor</small>
           </div>
         </button>
         <button type="button" class="demo-btn info" id="btnExportData">
-          <span class="btn-icon">📥</span>
+          <span class="btn-icon">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+          </span>
           <div class="btn-text">
-            <strong>Ekspor Log (.CSV)</strong>
-            <small>Unduh riwayat data pemantauan real-time</small>
+            <strong>Ekspor Telemetri (.CSV)</strong>
+            <small>Unduh riwayat audit telemetri multi-parameter</small>
           </div>
         </button>
       </div>
@@ -886,33 +1139,46 @@
   <!-- SECTION: Threshold Settings -->
   <section class="section settings-section">
     <div class="section-title">
-      <h2>⚙️ Pengaturan Threshold</h2>
+      <h2>
+        <svg class="section-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="4" y1="21" x2="4" y2="14"/>
+          <line x1="4" y1="10" x2="4" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="12"/>
+          <line x1="12" y1="8" x2="12" y2="3"/>
+          <line x1="20" y1="21" x2="20" y2="16"/>
+          <line x1="20" y1="12" x2="20" y2="3"/>
+          <line x1="1" y1="14" x2="7" y2="14"/>
+          <line x1="9" y1="8" x2="15" y2="8"/>
+          <line x1="17" y1="16" x2="23" y2="16"/>
+        </svg>
+        Safety Interlock &amp; Alarm Setpoint Thresholds
+      </h2>
     </div>
     <div class="settings-grid">
       <div class="setting-item">
-        <label>pH Output Minimum</label>
+        <label>pH Output Minimum Setpoint</label>
         <input type="range" min="5" max="8" step="0.1" value="6.5" class="setting-slider" id="thresholdPHMin">
-        <span class="setting-value" id="thresholdPHMinVal">6.5</span>
+        <span class="setting-value font-mono" id="thresholdPHMinVal">6.5</span>
       </div>
       <div class="setting-item">
-        <label>pH Output Maksimum</label>
+        <label>pH Output Maksimum Setpoint</label>
         <input type="range" min="7" max="10" step="0.1" value="8.5" class="setting-slider" id="thresholdPHMax">
-        <span class="setting-value" id="thresholdPHMaxVal">8.5</span>
+        <span class="setting-value font-mono" id="thresholdPHMaxVal">8.5</span>
       </div>
       <div class="setting-item">
-        <label>Turbidity Maksimum (NTU)</label>
+        <label>Turbidity Maksimum Setpoint (NTU)</label>
         <input type="range" min="5" max="100" step="1" value="25" class="setting-slider" id="thresholdTurbidity">
-        <span class="setting-value" id="thresholdTurbidityVal">25</span>
+        <span class="setting-value font-mono" id="thresholdTurbidityVal">25</span>
       </div>
       <div class="setting-item">
-        <label>EC Maksimum (µS/cm)</label>
+        <label>EC Maksimum Setpoint (&micro;S/cm)</label>
         <input type="range" min="100" max="2000" step="10" value="500" class="setting-slider" id="thresholdEC">
-        <span class="setting-value" id="thresholdECVal">500</span>
+        <span class="setting-value font-mono" id="thresholdECVal">500</span>
       </div>
       <div class="setting-item">
-        <label>Batas Debit Anomali (%)</label>
+        <label>Batas Anomali Debit / Clogging (%)</label>
         <input type="range" min="5" max="30" step="1" value="15" class="setting-slider" id="thresholdFlowDrop">
-        <span class="setting-value" id="thresholdFlowDropVal">15%</span>
+        <span class="setting-value font-mono" id="thresholdFlowDropVal">15%</span>
       </div>
     </div>
   </section>
@@ -925,31 +1191,31 @@
     <div class="telemetry-modal-header">
       <div class="modal-title">
         <span class="modal-dot live"></span>
-        <h3>Live IoT Telemetry Stream (MQTT / SCADA Packet Inspector)</h3>
+        <h3>Live IoT Telemetry Stream (MQTT / Sparkplug B Packet Inspector)</h3>
       </div>
       <button type="button" class="modal-close-btn" id="btnCloseTelemetry">&times;</button>
     </div>
     <div class="telemetry-modal-body">
-      <div class="telemetry-meta-bar">
-        <span>Broker: <code>mqtts://iot.vander-ai.enterprise:8883</code></span>
+      <div class="telemetry-meta-bar font-mono">
+        <span>Broker: <code>mqtts://scada.vander-ai.enterprise:8883</code></span>
         <span>Topic: <code>citarum/plant04/biochar01/telemetry</code></span>
         <span class="badge-tls">TLS 1.3 ENCRYPTED</span>
       </div>
-      <div class="telemetry-log-console" id="telemetryConsole">
+      <div class="telemetry-log-console font-mono" id="telemetryConsole">
         <!-- Live JSON stream generated by JS -->
       </div>
     </div>
-    <div class="telemetry-modal-footer">
-      <small>Industrial IoT Standard: OPC-UA &amp; MQTT JSON-LD Telemetry Spec v2.1</small>
-      <button type="button" class="telemetry-btn-copy" id="btnClearTelemetry">Bersihkan Log</button>
+    <div class="telemetry-modal-footer font-mono">
+      <small>Industrial Protocol Spec: OPC-UA &amp; MQTT JSON-LD Sparkplug B v3.0</small>
+      <button type="button" class="telemetry-btn-copy" id="btnClearTelemetry">Bersihkan Buffer</button>
     </div>
   </div>
 </div>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
-  <p>VANDER-AI © 2026 — Van der Waals & Redox Smart Adsorbent Artificial Intelligence</p>
-  <p class="footer-sub">Sistem Pemantauan Cerdas Instalasi Pengolahan Air Limbah Industri Berbasis Biochar</p>
+  <p>VANDER-AI &copy; 2026 &mdash; Van der Waals &amp; Redox Smart Adsorbent Artificial Intelligence</p>
+  <p class="footer-sub">Sistem Pemantauan Cerdas Instalasi Pengolahan Air Limbah Industri Berbasis Biochar Kotoran Ayam</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>

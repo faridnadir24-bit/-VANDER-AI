@@ -316,10 +316,10 @@
     // pH check
     const qaPH = document.getElementById('qaPH');
     if (ph >= state.thresholds.phMin && ph <= state.thresholds.phMax) {
-      qaPH.textContent = '✅ Normal';
+      qaPH.textContent = 'NOMINAL';
       qaPH.style.color = '#059669';
     } else {
-      qaPH.textContent = '❌ Abnormal';
+      qaPH.textContent = 'OUT-OF-SPEC';
       qaPH.style.color = '#dc2626';
       isEmergency = true;
     }
@@ -327,10 +327,10 @@
     // Turbidity check
     const qaTurb = document.getElementById('qaTurbidity');
     if (turb <= state.thresholds.turbidity) {
-      qaTurb.textContent = '✅ Normal';
+      qaTurb.textContent = 'NOMINAL';
       qaTurb.style.color = '#059669';
     } else {
-      qaTurb.textContent = '❌ Melebihi Batas';
+      qaTurb.textContent = 'OUT-OF-SPEC';
       qaTurb.style.color = '#dc2626';
       isEmergency = true;
     }
@@ -338,10 +338,10 @@
     // EC check
     const qaEC = document.getElementById('qaEC');
     if (ec <= state.thresholds.ec) {
-      qaEC.textContent = '✅ Normal';
+      qaEC.textContent = 'NOMINAL';
       qaEC.style.color = '#059669';
     } else {
-      qaEC.textContent = '❌ Melebihi Batas';
+      qaEC.textContent = 'OUT-OF-SPEC';
       qaEC.style.color = '#dc2626';
       isEmergency = true;
     }
@@ -459,7 +459,7 @@
           }
         },
         tooltip: {
-          backgroundColor: 'rgba(15, 23, 42, 0.9)',
+          backgroundColor: 'rgba(14, 20, 36, 0.95)', borderColor: 'rgba(148, 163, 184, 0.2)', borderWidth: 1, titleColor: '#f8fafc', bodyColor: '#cbd5e1',
           titleFont: { family: 'Inter', size: 12 },
           bodyFont: { family: 'Inter', size: 11 },
           cornerRadius: 8,
@@ -468,11 +468,11 @@
       },
       scales: {
         x: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
+          grid: { color: 'rgba(148, 163, 184, 0.08)' },
           ticks: { font: { family: 'Inter', size: 10 }, color: '#94a3b8', maxRotation: 0 }
         },
         y: {
-          grid: { color: 'rgba(0,0,0,0.04)' },
+          grid: { color: 'rgba(148, 163, 184, 0.08)' },
           ticks: { font: { family: 'Inter', size: 10 }, color: '#94a3b8' }
         }
       },
@@ -863,18 +863,24 @@
     const streamRetention = document.getElementById('streamRetention');
 
     if (state.isEmergency) {
-      if (valveIcon) valveIcon.textContent = '🛑';
+      if (valveIcon) {
+        valveIcon.className = 'valve-visual-symbol diverted';
+        valveIcon.innerHTML = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 6 12 12 4 18 4 6"/><polygon points="20 6 12 12 20 18 20 6"/><line x1="12" y1="12" x2="12" y2="4"/><circle cx="12" cy="3" r="2"/><line x1="18" y1="6" x2="6" y2="18"/></svg>';
+      }
       if (valveState) {
         valveState.textContent = 'RETENTION BYPASS ACTIVE';
-        valveState.className = 'node-state closed';
+        valveState.className = 'node-state closed font-mono';
       }
       if (streamRiver) streamRiver.classList.remove('active');
       if (streamRetention) streamRetention.classList.add('active');
     } else {
-      if (valveIcon) valveIcon.textContent = '🚰';
+      if (valveIcon) {
+        valveIcon.className = 'valve-visual-symbol';
+        valveIcon.innerHTML = '<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="4 6 12 12 4 18 4 6"/><polygon points="20 6 12 12 20 18 20 6"/><line x1="12" y1="12" x2="12" y2="4"/><circle cx="12" cy="3" r="2"/></svg>';
+      }
       if (valveState) {
         valveState.textContent = 'RIVER DISCHARGE OPEN';
-        valveState.className = 'node-state open';
+        valveState.className = 'node-state open font-mono';
       }
       if (streamRiver) streamRiver.classList.add('active');
       if (streamRetention) streamRetention.classList.remove('active');
@@ -956,14 +962,14 @@
       btnAudio.addEventListener('click', () => {
         state.audioEnabled = !state.audioEnabled;
         if (state.audioEnabled) {
-          if (audioIcon) audioIcon.textContent = '🔊';
+          if (audioIcon) audioIcon.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/></svg>';
           if (audioText) audioText.textContent = 'Audio FX: ON';
           soundSuccess();
-          addNotification('info', 'Audio peringatan & efek suara SCADA diaktifkan.');
+          addNotification('info', '[SCADA-AUDIO] Sistem peringatan akustik diaktifkan.');
         } else {
-          if (audioIcon) audioIcon.textContent = '🔇';
+          if (audioIcon) audioIcon.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>';
           if (audioText) audioText.textContent = 'Audio FX: OFF';
-          addNotification('info', 'Audio efek suara dinonaktifkan.');
+          addNotification('info', '[SCADA-AUDIO] Efek suara SCADA dinonaktifkan.');
         }
       });
     }
@@ -1084,13 +1090,13 @@
         const text = document.getElementById('simStatusText');
         soundBeep();
         if (state.isPaused) {
-          if (icon) icon.textContent = '▶️';
-          if (text) text.textContent = 'Lanjutkan Simulasi';
-          addNotification('info', 'Simulasi data dijeda.');
+          if (icon) icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>';
+          if (text) text.textContent = 'Lanjutkan Telemetri';
+          addNotification('info', '[PLC-RUN] Streaming telemetri field bus dijeda.');
         } else {
-          if (icon) icon.textContent = '⏸️';
-          if (text) text.textContent = 'Jeda Simulasi';
-          addNotification('info', 'Simulasi data dilanjutkan.');
+          if (icon) icon.innerHTML = '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>';
+          if (text) text.textContent = 'Jeda Telemetri';
+          addNotification('info', '[PLC-RUN] Streaming telemetri field bus dilanjutkan.');
         }
         updateSCADADigitalTwin();
       });
