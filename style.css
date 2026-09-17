@@ -1909,3 +1909,837 @@ body {
   border-color: #6366f1;
 }
 
+/* ========================================================
+   ENTERPRISE SCADA & AI ENGINE ENHANCEMENTS
+   ======================================================== */
+
+/* Header additions */
+.header-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.enterprise-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  background: rgba(14, 165, 233, 0.2);
+  color: #7dd3fc;
+  border: 1px solid rgba(125, 211, 252, 0.4);
+  padding: 3px 8px;
+  border-radius: 6px;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-tool-btn {
+  background: rgba(255, 255, 255, 0.12);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+
+.header-tool-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: white;
+  transform: translateY(-1px);
+}
+
+.header-tool-btn.primary {
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  border-color: #38bdf8;
+  box-shadow: 0 2px 8px rgba(14, 165, 233, 0.3);
+}
+
+.header-tool-btn.primary:hover {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  box-shadow: 0 4px 14px rgba(14, 165, 233, 0.5);
+}
+
+/* Enterprise Sub-Ribbon */
+.enterprise-ribbon {
+  background: #082f49;
+  border-bottom: 1px solid rgba(14, 165, 233, 0.25);
+  color: #cbd5e1;
+  padding: 8px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  font-size: 11.5px;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.ribbon-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.ribbon-dot.live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 1.5s infinite;
+}
+
+.ribbon-label {
+  color: #64748b;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.ribbon-val {
+  color: #f1f5f9;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+}
+
+.ribbon-val.high-tech {
+  color: #38bdf8;
+}
+
+.text-success {
+  color: #10b981 !important;
+}
+
+/* ============ AI LIVE ADVISORY HUB ============ */
+.ai-advisory-section {
+  margin-bottom: 24px;
+}
+
+.ai-advisory-card {
+  background: linear-gradient(135deg, #0f172a, #0c2b42, #0f172a);
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 16px;
+  padding: 20px 24px;
+  color: white;
+  box-shadow: 0 8px 30px rgba(12, 74, 110, 0.2), inset 0 0 20px rgba(14, 165, 233, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.ai-advisory-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #0ea5e9, #10b981, #8b5cf6, #0ea5e9);
+  background-size: 200% 100%;
+  animation: shimmer-text 4s linear infinite;
+}
+
+.ai-advisory-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.ai-brain-badge {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+}
+
+.pulse-ring {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #38bdf8;
+  position: relative;
+}
+
+.pulse-ring::after {
+  content: '';
+  position: absolute;
+  top: -4px;
+  left: -4px;
+  right: -4px;
+  bottom: -4px;
+  border: 2px solid #38bdf8;
+  border-radius: 50%;
+  animation: ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+@keyframes ping {
+  75%, 100% { transform: scale(2); opacity: 0; }
+}
+
+.ai-chip-icon {
+  font-size: 20px;
+}
+
+.ai-brain-badge strong {
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  color: #f8fafc;
+}
+
+.ai-confidence-pill {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(14, 165, 233, 0.15);
+  border: 1px solid rgba(56, 189, 248, 0.3);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.ai-confidence-pill span {
+  color: #94a3b8;
+}
+
+.ai-confidence-pill strong {
+  color: #38bdf8;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+.ai-stream-text {
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 13.5px;
+  line-height: 1.6;
+  color: #e2e8f0;
+  background: rgba(0, 0, 0, 0.25);
+  padding: 12px 16px;
+  border-radius: 10px;
+  border-left: 3px solid #38bdf8;
+  margin-bottom: 14px;
+  min-height: 48px;
+}
+
+.typing-cursor {
+  color: #38bdf8;
+  font-weight: 800;
+  animation: blink 0.8s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.ai-diagnostics-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.diag-item {
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px 12px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.diag-label {
+  font-size: 11px;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.diag-val {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f1f5f9;
+}
+
+/* ============ OPTICAL LASER SCANNER & NEPHELOMETER ============ */
+.viz-subtitle {
+  font-size: 12px;
+  color: #64748b;
+  margin-left: 12px;
+  font-weight: 500;
+}
+
+.laser-scanner {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #ef4444;
+  box-shadow: 0 0 10px #ef4444, 0 0 20px rgba(239, 68, 68, 0.8);
+  z-index: 10;
+  animation: laser-scan 3s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+
+.laser-scanner.clean-laser {
+  background: #0ea5e9;
+  box-shadow: 0 0 10px #0ea5e9, 0 0 20px rgba(14, 165, 233, 0.8);
+  animation-duration: 3.5s;
+}
+
+@keyframes laser-scan {
+  0% { top: 15%; opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { top: 85%; opacity: 0.8; }
+}
+
+.laser-scatter-cone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 4;
+}
+
+.laser-scatter-cone.dirty-cone {
+  background: radial-gradient(ellipse at center 50%, rgba(239, 68, 68, 0.15) 0%, rgba(245, 158, 11, 0.1) 40%, transparent 70%);
+  animation: scatter-flicker 2s infinite ease-in-out;
+}
+
+.laser-scatter-cone.clean-cone {
+  background: linear-gradient(90deg, transparent 48%, rgba(56, 189, 248, 0.15) 50%, transparent 52%);
+  opacity: 0.6;
+}
+
+@keyframes scatter-flicker {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 0.9; }
+}
+
+.optical-badge {
+  font-size: 11px;
+  font-weight: 600;
+  padding: 5px 12px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  letter-spacing: 0.2px;
+  margin-top: 4px;
+}
+
+.optical-badge .opt-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.optical-badge.danger {
+  background: rgba(239, 68, 68, 0.1);
+  color: #b91c1c;
+  border: 1px solid rgba(239, 68, 68, 0.25);
+}
+.optical-badge.danger .opt-dot { background: #ef4444; }
+
+.optical-badge.success {
+  background: rgba(16, 185, 129, 0.1);
+  color: #047857;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+.optical-badge.success .opt-dot { background: #10b981; }
+
+/* ============ SCADA P&ID SYNOPTIC FLOW DIAGRAM ============ */
+.scada-synoptic-section {
+  margin-bottom: 32px;
+}
+
+.scada-diagram-card {
+  background: #091a28;
+  border: 1px solid rgba(14, 165, 233, 0.25);
+  border-radius: 18px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  color: white;
+}
+
+.scada-flow-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.scada-node {
+  background: #0f273d;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  min-width: 190px;
+  box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.4);
+}
+
+.node-tag {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  color: #38bdf8;
+  margin-bottom: 12px;
+  font-family: monospace;
+}
+
+.pump-icon-wrap {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: rgba(14, 165, 233, 0.15);
+  border: 2px solid #0ea5e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 10px;
+}
+
+.pump-icon-wrap.spinning .pump-symbol {
+  display: inline-block;
+  animation: spin 3s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.node-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 11px;
+}
+
+.node-state {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.node-state.running {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.node-state.open {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+}
+
+.node-state.closed {
+  background: rgba(239, 68, 68, 0.2);
+  color: #ef4444;
+}
+
+/* Pipe line connectors */
+.scada-pipe-line {
+  flex: 1;
+  min-width: 60px;
+  height: 10px;
+  background: #1e3a53;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden;
+}
+
+.pipe-liquid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 200%;
+}
+
+.pipe-liquid.in-flow {
+  background: repeating-linear-gradient(90deg, #78350f, #78350f 10px, #b45309 10px, #b45309 20px);
+  animation: pipe-flow-anim 1.5s linear infinite;
+}
+
+.pipe-liquid.out-flow {
+  background: repeating-linear-gradient(90deg, #0284c7, #0284c7 10px, #38bdf8 10px, #38bdf8 20px);
+  animation: pipe-flow-anim 1.5s linear infinite;
+}
+
+@keyframes pipe-flow-anim {
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
+}
+
+.pipe-sensor-tag {
+  position: absolute;
+  top: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 9px;
+  font-weight: 700;
+  color: #94a3b8;
+  font-family: monospace;
+  background: #091a28;
+  padding: 1px 5px;
+  border-radius: 4px;
+}
+
+/* Reactor Column Graphic */
+.column-visual {
+  width: 170px;
+  border: 2px solid #38bdf8;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}
+
+.column-header-cap, .column-footer-cap {
+  background: #1e3a53;
+  font-size: 10px;
+  padding: 4px;
+  color: #94a3b8;
+  font-family: monospace;
+}
+
+.column-footer-cap {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.column-bed-body {
+  height: 90px;
+  position: relative;
+  background: #132433;
+}
+
+.mtz-zone {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(180deg, rgba(239, 68, 68, 0.6), rgba(245, 158, 11, 0.6));
+  border-bottom: 2px dashed #f59e0b;
+  transition: height 1s ease;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.mtz-label {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: white;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1px 4px;
+  border-radius: 3px;
+  margin-bottom: 2px;
+}
+
+.biochar-active-bed {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: radial-gradient(circle, #2d3748 10%, #1a202c 90%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bed-text {
+  font-size: 8.5px;
+  color: #94a3b8;
+  padding: 4px;
+  text-align: center;
+}
+
+/* 3-Way Valve Box */
+.valve-actuator-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.valve-visual-symbol {
+  font-size: 28px;
+}
+
+.valve-direction-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  text-align: left;
+}
+
+.stream-branch {
+  font-size: 10.5px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #64748b;
+  padding: 3px 6px;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.stream-branch .stream-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #475569;
+}
+
+.stream-branch.active.stream-river {
+  color: #10b981;
+  background: rgba(16, 185, 129, 0.15);
+  font-weight: 700;
+}
+.stream-branch.active.stream-river .stream-dot {
+  background: #10b981;
+  box-shadow: 0 0 6px #10b981;
+}
+
+.stream-branch.active.stream-retention {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.15);
+  font-weight: 700;
+  animation: pulse-dot 1s infinite;
+}
+.stream-branch.active.stream-retention .stream-dot {
+  background: #ef4444;
+  box-shadow: 0 0 6px #ef4444;
+}
+
+/* ============ KINETIC PARAMETER CHIPS ============ */
+.kinetic-params-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+  margin-top: 10px;
+  margin-bottom: 12px;
+}
+
+.k-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 6px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.k-label {
+  font-size: 11px;
+  color: #64748b;
+  font-weight: 500;
+}
+
+.k-val {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #0c4a6e;
+  font-family: monospace;
+}
+
+/* ============ LIVE TELEMETRY MODAL ============ */
+.telemetry-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.telemetry-modal-overlay.open {
+  display: flex;
+}
+
+.telemetry-modal {
+  background: #0f172a;
+  border: 1px solid rgba(14, 165, 233, 0.3);
+  border-radius: 18px;
+  width: 90%;
+  max-width: 820px;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+  color: #f1f5f9;
+  overflow: hidden;
+  animation: modal-pop 0.3s ease;
+}
+
+@keyframes modal-pop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.telemetry-modal-header {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #1e293b;
+  background: #1e293b;
+}
+
+.telemetry-modal-header .modal-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modal-dot.live {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: pulse-dot 1s infinite;
+}
+
+.telemetry-modal-header h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f8fafc;
+}
+
+.modal-close-btn {
+  background: none;
+  border: none;
+  color: #94a3b8;
+  font-size: 24px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.modal-close-btn:hover {
+  color: white;
+}
+
+.telemetry-modal-body {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+  overflow: hidden;
+}
+
+.telemetry-meta-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 11.5px;
+  color: #94a3b8;
+  background: #1e293b;
+  padding: 8px 12px;
+  border-radius: 8px;
+  flex-wrap: wrap;
+}
+
+.telemetry-meta-bar code {
+  color: #38bdf8;
+  font-family: monospace;
+}
+
+.badge-tls {
+  background: rgba(16, 185, 129, 0.2);
+  color: #10b981;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 700;
+  font-size: 10px;
+  letter-spacing: 0.5px;
+}
+
+.telemetry-log-console {
+  background: #020617;
+  border: 1px solid #1e293b;
+  border-radius: 10px;
+  padding: 14px;
+  font-family: 'Consolas', monospace;
+  font-size: 12px;
+  color: #cbd5e1;
+  height: 380px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.telemetry-log-item {
+  line-height: 1.5;
+  border-bottom: 1px dashed rgba(255, 255, 255, 0.08);
+  padding-bottom: 6px;
+}
+
+.log-time { color: #64748b; }
+.log-topic { color: #38bdf8; }
+.log-json { color: #a5f3fc; }
+
+.telemetry-modal-footer {
+  padding: 12px 20px;
+  border-top: 1px solid #1e293b;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0f172a;
+}
+
+.telemetry-modal-footer small {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.telemetry-btn-copy {
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.telemetry-btn-copy:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: white;
+}
+
+

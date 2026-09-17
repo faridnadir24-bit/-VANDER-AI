@@ -16,6 +16,7 @@
     notifCount: 0,
     isEmergency: false,
     isPaused: false,
+    audioEnabled: false,
     capacityHistory: [],
     thresholds: {
       phMin: 6.5,
@@ -273,6 +274,12 @@
     const minsLeft = Math.floor(minutesLeft % 60);
     countdown.textContent = `${hoursLeft} jam ${minsLeft} menit`;
 
+    // Dynamic Kinetic Parameter updates
+    const kTau = document.getElementById('kParamTau');
+    const kMTZ = document.getElementById('kParamMTZ');
+    if (kTau) kTau.textContent = `${formatNumber((capacity / 100) * 58, 1)} jam`;
+    if (kMTZ) kMTZ.textContent = `${formatNumber(15 + ((100 - capacity) / 100) * 12, 1)} cm`;
+
     // Update capacity history
     state.capacityHistory.push(capacity);
     if (state.capacityHistory.length > 20) state.capacityHistory.shift();
@@ -353,6 +360,7 @@
       banner.classList.add('visible');
       addNotification('emergency', 'EMERGENCY: Kualitas output melewati ambang batas! Katup otomatis ditutup.');
       state.isEmergency = true;
+      soundEmergency();
     } else if (!isEmergency && state.isEmergency) {
       // Recovery from emergency
       valveLight.className = 'valve-light green';
@@ -361,6 +369,7 @@
       banner.classList.remove('visible');
       addNotification('info', 'Kualitas output kembali normal. Katup terbuka kembali.');
       state.isEmergency = false;
+      soundSuccess();
     }
   }
 
@@ -724,6 +733,277 @@
     addNotification('info', 'Data telemetri berhasil diekspor ke file CSV.');
   }
 
+  // ============ AUDIO SYNTHESIZER (Web Audio API) ============
+  let audioCtx = null;
+  function getAudioContext() {
+    if (!audioCtx && (window.AudioContext || window.webkitAudioContext)) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    return audioCtx;
+  }
+
+  function playTone(freq, type, duration, gainVal = 0.08) {
+    if (!state.audioEnabled) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      if (ctx.state === 'suspended') ctx.resume();
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      gain.gain.setValueAtTime(gainVal, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    } catch (e) {
+      // Audio fallback
+    }
+  }
+
+  function soundBeep() { playTone(880, 'sine', 0.1, 0.04); }
+  function soundEmergency() {
+    playTone(440, 'sawtooth', 0.25, 0.08);
+    setTimeout(() => playTone(660, 'sawtooth', 0.25, 0.08), 260);
+  }
+  function soundSuccess() {
+    playTone(523.25, 'sine', 0.12, 0.05);
+    setTimeout(() => playTone(659.25, 'sine', 0.15, 0.05), 100);
+  }
+
+  // ============ AI LIVE ADVISORY HUB ============
+  function updateAIAdvisory() {
+    const streamEl = document.getElementById('aiReasoningMsg');
+    const confEl = document.getElementById('aiConfidenceVal');
+    const ribConf = document.getElementById('ribbonConfidence');
+    const diagInterlock = document.getElementById('diagInterlock');
+    const ribbonLatency = document.getElementById('ribbonLatency');
+
+    if (ribbonLatency) {
+      ribbonLatency.innerHTML = `${Math.floor(rand(6, 14))} ms &bull; OPC-UA / TLS 1.3`;
+    }
+
+    if (state.isEmergency) {
+      if (streamEl) {
+        streamEl.innerHTML = `<span style="color:#ef4444;font-weight:700;">[AI EMERGENCY ACTION]:</span> Ambang batas terlampaui (Turbidity: ${formatNumber(state.output.turbidity, 0)} NTU / pH: ${formatNumber(state.output.ph, 1)}). Algoritma interlock otomatis mengisolasi effluent; katup MOV-301 dialihkan ke tangki retensi darurat untuk resirkulasi.`;
+      }
+      if (confEl) confEl.textContent = '99.8%';
+      if (ribConf) ribConf.textContent = '99.8% (ANOMALY DETECTED)';
+      if (diagInterlock) {
+        diagInterlock.textContent = 'INTERLOCK TRIPPED (BYPASS ACTIVE)';
+        diagInterlock.style.color = '#ef4444';
+      }
+      return;
+    }
+
+    // Dynamic AI confidence fluctuation
+    const conf = (99.1 + rand(0, 0.6)).toFixed(1);
+    if (confEl) confEl.textContent = conf + '%';
+    if (ribConf) ribConf.textContent = conf + '% (F1: 0.982)';
+
+    if (diagInterlock) {
+      diagInterlock.textContent = 'ARMED & MONITORING';
+      diagInterlock.style.color = '#10b981';
+    }
+
+    const mtzPct = 100 - state.adsorptionCapacity;
+    if (mtzPct > 70) {
+      if (streamEl) {
+        streamEl.innerHTML = `<span style="color:#f59e0b;font-weight:700;">[AI ADVISORY - WARNING]:</span> Kejenuhan lapisan biochar mencapai ${formatNumber(mtzPct, 1)}%. Kapasitas adsorpsi mendekati titik breakthrough. Disarankan jadwal backwash dalam < 12 jam.`;
+      }
+    } else if (state.adsorptionCapacity > 50) {
+      const messages = [
+        `Gaya tarik Van der Waals optimal pada mikropori biochar kotoran ayam (luas spesifik 287 m²/g). Efisiensi penjerapan polutan organik tekstil mencapai 96.8%.`,
+        `Gugus karboksil (-COOH) dan hidroksil (-OH) biochar aktif mengkelat kation logam berat Pb²⁺ dan Cd²⁺ secara selektif & stabil.`,
+        `Reaksi redoks Cr⁶⁺ → Cr³⁺ berlangsung normal mengikuti kinetika pseudo-second order (k₂: 0.042 g/mg·min). Air limbah tereduksi sempurna.`,
+        `Fluks hidrolik stabil (${formatNumber(state.output.flow, 1)} L/jam). Tekanan kolom adsorpsi normal pada 0.18 bar, tidak terdeteksi fouling/clogging.`,
+        `Proyeksi kurva kinetika Thomas & Yoon-Nelson memvalidasi sisa masa layan filter masih mencukupi (>40 jam operasi).`
+      ];
+      if (streamEl && Math.random() < 0.45) {
+        streamEl.textContent = messages[Math.floor(rand(0, messages.length))];
+      }
+    }
+  }
+
+  // ============ SCADA DIGITAL TWIN P&ID ============
+  function updateSCADADigitalTwin() {
+    // 1. Feed Pump P-101
+    const pumpSpeed = document.getElementById('pumpSpeed');
+    const pumpWrap = document.getElementById('pumpIconWrap');
+    const pumpState = document.getElementById('pumpState');
+    if (pumpSpeed) pumpSpeed.textContent = `Flow: ${formatNumber(state.input.flow, 1)} L/jam`;
+    if (pumpWrap) {
+      if (state.input.flow > 0 && !state.isPaused) {
+        pumpWrap.classList.add('spinning');
+        if (pumpState) { pumpState.textContent = 'RUNNING'; pumpState.className = 'node-state running'; }
+      } else {
+        pumpWrap.classList.remove('spinning');
+        if (pumpState) { pumpState.textContent = 'PAUSED'; pumpState.className = 'node-state'; }
+      }
+    }
+
+    // 2. Reactor R-201 MTZ Bed saturation
+    const mtzBar = document.getElementById('mtzZoneBar');
+    const mtzPercent = document.getElementById('mtzPercent');
+    const bedPressure = document.getElementById('bedPressure');
+    const satPct = clamp(100 - state.adsorptionCapacity, 5, 95);
+    if (mtzBar) mtzBar.style.height = `${satPct}%`;
+    if (mtzPercent) mtzPercent.textContent = `${formatNumber(satPct, 1)}%`;
+    if (bedPressure) {
+      const p = 0.15 + (satPct / 100) * 0.12;
+      bedPressure.textContent = `${formatNumber(p, 2)} bar`;
+    }
+
+    // 3. 3-Way Motorized Control Valve MOV-301
+    const valveIcon = document.getElementById('scadaValveIcon');
+    const valveState = document.getElementById('scadaValveState');
+    const streamRiver = document.getElementById('streamRiver');
+    const streamRetention = document.getElementById('streamRetention');
+
+    if (state.isEmergency) {
+      if (valveIcon) valveIcon.textContent = '🛑';
+      if (valveState) {
+        valveState.textContent = 'RETENTION BYPASS ACTIVE';
+        valveState.className = 'node-state closed';
+      }
+      if (streamRiver) streamRiver.classList.remove('active');
+      if (streamRetention) streamRetention.classList.add('active');
+    } else {
+      if (valveIcon) valveIcon.textContent = '🚰';
+      if (valveState) {
+        valveState.textContent = 'RIVER DISCHARGE OPEN';
+        valveState.className = 'node-state open';
+      }
+      if (streamRiver) streamRiver.classList.add('active');
+      if (streamRetention) streamRetention.classList.remove('active');
+    }
+  }
+
+  // ============ NEPHELOMETRIC OPTICAL METRICS ============
+  function updateOpticalMetrics() {
+    const dirtyText = document.getElementById('dirtyOpticalText');
+    const cleanText = document.getElementById('cleanOpticalText');
+    const cleanBadge = document.getElementById('cleanOpticalBadge');
+
+    // Dirty water scatter
+    const dirtyScatter = clamp(85 + (state.input.turbidity / 550) * 14, 80, 99.5);
+    const dirtyTrans = clamp(100 - dirtyScatter, 0.5, 20);
+    if (dirtyText) dirtyText.innerHTML = `Hamburan Cahaya: ${formatNumber(dirtyScatter, 1)}% &bull; Transmitansi: ${formatNumber(dirtyTrans, 1)}%`;
+
+    // Clean water scatter
+    const cleanScatter = clamp((state.output.turbidity / 50) * 10, 0.3, 80);
+    const cleanTrans = clamp(100 - cleanScatter, 20, 99.7);
+    if (cleanText) {
+      if (state.output.turbidity > state.thresholds.turbidity) {
+        cleanText.innerHTML = `Hamburan Cahaya: ${formatNumber(cleanScatter, 1)}% &bull; Transmitansi Rendah: ${formatNumber(cleanTrans, 1)}%`;
+        if (cleanBadge) cleanBadge.className = 'optical-badge danger';
+      } else {
+        cleanText.innerHTML = `Transmitansi Optik: ${formatNumber(cleanTrans, 1)}% &bull; Hamburan Cahaya: ${formatNumber(cleanScatter, 1)}%`;
+        if (cleanBadge) cleanBadge.className = 'optical-badge success';
+      }
+    }
+  }
+
+  // ============ LIVE TELEMETRY LOG STREAM ============
+  function pushTelemetryPacket() {
+    const consoleEl = document.getElementById('telemetryConsole');
+    if (!consoleEl) return;
+
+    const pkt = {
+      timestamp: Math.floor(Date.now() / 1000),
+      plant_id: "CITARUM_TX_04",
+      reactor_id: "R-201_BIOCHAR",
+      raw_inlet: {
+        flow_lph: Number(formatNumber(state.input.flow, 1)),
+        ph: Number(formatNumber(state.input.ph, 2)),
+        turb_ntu: Math.round(state.input.turbidity),
+        ec_us_cm: Math.round(state.input.ec)
+      },
+      filtered_outlet: {
+        flow_lph: Number(formatNumber(state.output.flow, 1)),
+        ph: Number(formatNumber(state.output.ph, 2)),
+        turb_ntu: Math.round(state.output.turbidity),
+        ec_us_cm: Math.round(state.output.ec)
+      },
+      ai_kinetics: {
+        adsorption_cap_pct: Number(formatNumber(state.adsorptionCapacity, 1)),
+        mov301_valve_pos: state.isEmergency ? "RETENTION_BYPASS" : "RIVER_DISCHARGE",
+        status: state.isEmergency ? "CRITICAL_INTERLOCK" : "OPTIMAL"
+      }
+    };
+
+    const item = document.createElement('div');
+    item.className = 'telemetry-log-item';
+    item.innerHTML = `<span class="log-time">[${getTimeString()}]</span> <span class="log-topic">PUB &rarr; citarum/plant04/biochar01/telemetry:</span> <span class="log-json">${JSON.stringify(pkt)}</span>`;
+    consoleEl.appendChild(item);
+
+    // Keep max 35 packets in DOM
+    while (consoleEl.children.length > 35) {
+      consoleEl.removeChild(consoleEl.firstChild);
+    }
+    consoleEl.scrollTop = consoleEl.scrollHeight;
+  }
+
+  // ============ ENTERPRISE & MODAL CONTROLS ============
+  function initEnterpriseControls() {
+    // Audio toggle
+    const btnAudio = document.getElementById('btnAudioToggle');
+    const audioIcon = document.getElementById('audioIcon');
+    const audioText = document.getElementById('audioText');
+    if (btnAudio) {
+      btnAudio.addEventListener('click', () => {
+        state.audioEnabled = !state.audioEnabled;
+        if (state.audioEnabled) {
+          if (audioIcon) audioIcon.textContent = '🔊';
+          if (audioText) audioText.textContent = 'Audio FX: ON';
+          soundSuccess();
+          addNotification('info', 'Audio peringatan & efek suara SCADA diaktifkan.');
+        } else {
+          if (audioIcon) audioIcon.textContent = '🔇';
+          if (audioText) audioText.textContent = 'Audio FX: OFF';
+          addNotification('info', 'Audio efek suara dinonaktifkan.');
+        }
+      });
+    }
+
+    // Telemetry Modal
+    const modal = document.getElementById('telemetryModal');
+    const btnOpen = document.getElementById('btnOpenTelemetry');
+    const btnClose = document.getElementById('btnCloseTelemetry');
+    const btnClear = document.getElementById('btnClearTelemetry');
+    const consoleEl = document.getElementById('telemetryConsole');
+
+    if (btnOpen && modal) {
+      btnOpen.addEventListener('click', () => {
+        modal.classList.add('open');
+        soundBeep();
+      });
+    }
+
+    if (btnClose && modal) {
+      btnClose.addEventListener('click', () => {
+        modal.classList.remove('open');
+      });
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          modal.classList.remove('open');
+        }
+      });
+    }
+
+    if (btnClear && consoleEl) {
+      btnClear.addEventListener('click', () => {
+        consoleEl.innerHTML = '';
+        soundBeep();
+      });
+    }
+  }
+
   // ============ LIVE DEMO & SIMULATION CONTROLS ============
   function initDemoControls() {
     // 1. Trigger Emergency / Quality Anomaly
@@ -736,7 +1016,11 @@
         updateSensorPanels();
         updateQualityAssurance();
         updateWaterVisuals();
+        updateAIAdvisory();
+        updateSCADADigitalTwin();
+        updateOpticalMetrics();
         updateGauges();
+        soundEmergency();
         addNotification('emergency', 'DEMO: Anomali kualitas disimulasikan! Turbidity = 85 NTU (ambang batas: ' + state.thresholds.turbidity + ' NTU). Katup otomatis ditutup.');
       });
     }
@@ -748,6 +1032,8 @@
         state.output.flow = Math.round(state.input.flow * 0.70); // 30% drop (>15%)
         updateSensorPanels();
         updateMassBalance();
+        updateSCADADigitalTwin();
+        soundBeep();
         addNotification('warning', 'DEMO: Penyumbatan pori biochar disimulasikan! Debit output turun >15%. Lakukan backwash!');
       });
     }
@@ -778,9 +1064,13 @@
         updateSensorPanels();
         updateQualityAssurance();
         updateWaterVisuals();
+        updateAIAdvisory();
+        updateSCADADigitalTwin();
+        updateOpticalMetrics();
         updateBreakthroughPredictor();
         updateMassBalance();
         updateGauges();
+        soundSuccess();
         addNotification('info', 'DEMO: Backwash selesai! Biochar diregenerasi ke 95%. Katup menuju sungai dibuka kembali.');
       });
     }
@@ -792,6 +1082,7 @@
         state.isPaused = !state.isPaused;
         const icon = document.getElementById('simIcon');
         const text = document.getElementById('simStatusText');
+        soundBeep();
         if (state.isPaused) {
           if (icon) icon.textContent = '▶️';
           if (text) text.textContent = 'Lanjutkan Simulasi';
@@ -801,13 +1092,17 @@
           if (text) text.textContent = 'Jeda Simulasi';
           addNotification('info', 'Simulasi data dilanjutkan.');
         }
+        updateSCADADigitalTwin();
       });
     }
 
     // 5. Export Telemetry CSV
     const btnExport = document.getElementById('btnExportData');
     if (btnExport) {
-      btnExport.addEventListener('click', exportTelemetryCSV);
+      btnExport.addEventListener('click', () => {
+        soundBeep();
+        exportTelemetryCSV();
+      });
     }
   }
 
@@ -833,6 +1128,8 @@
         updateQualityAssurance();
         updateMassBalance();
         updateWaterVisuals();
+        updateOpticalMetrics();
+        updateAIAdvisory();
       });
     });
   }
@@ -849,8 +1146,12 @@
     updateEcoEfficiency();
     updateRemovalEfficiency();
     updateWaterVisuals();
+    updateAIAdvisory();
+    updateSCADADigitalTwin();
+    updateOpticalMetrics();
     updateGauges();
     updateCharts();
+    pushTelemetryPacket();
     maybeRandomNotification();
   }
 
@@ -859,7 +1160,6 @@
     const steps = document.querySelectorAll('.load-step');
     const screen = document.getElementById('loadingScreen');
     if (!screen || steps.length === 0) {
-      // No loading screen in DOM, skip
       return Promise.resolve();
     }
     return new Promise(resolve => {
@@ -879,7 +1179,7 @@
             resolve();
           }, 400);
         }
-      }, 550);
+      }, 500);
     });
   }
 
@@ -893,14 +1193,19 @@
     initCharts();
     initThresholdListeners();
     initDemoControls();
+    initEnterpriseControls();
 
     // Show loading screen then start
     showLoadingScreen().then(() => {
       // Initial notifications
-      addNotification('info', 'Sistem VANDER-AI diinisialisasi. Semua sensor aktif.');
-      addNotification('info', 'Biochar kotoran ayam siap digunakan sebagai media adsorben.');
-      addNotification('info', 'Monitoring gaya Van der Waals dan reaksi Redoks dimulai.');
-      addNotification('info', 'Prinsip sains: Van der Waals, Redoks, Kemisorpsi aktif.');
+      addNotification('info', 'Sistem VANDER-AI Enterprise diinisialisasi. Seluruh sensor aktif.');
+      addNotification('info', 'Biochar kotoran ayam siap digunakan sebagai media adsorben (pirolisis 500°C).');
+      addNotification('info', 'Monitoring SCADA real-time: gaya Van der Waals & reaksi Redoks dimulai.');
+      addNotification('info', 'Inference Engine aktif: model kinetika Yoon-Nelson & Thomas online.');
+
+      // Push first telemetry packets
+      pushTelemetryPacket();
+      pushTelemetryPacket();
 
       // Run first update immediately
       update();

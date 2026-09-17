@@ -62,18 +62,50 @@
       </svg>
     </div>
     <div class="header-text">
-      <h1>VANDER-AI</h1>
-      <p class="tagline">Smart Adsorbent Monitoring System</p>
+      <div class="header-badge-row">
+        <h1>VANDER-AI</h1>
+        <span class="enterprise-tag">ENTERPRISE SCADA v4.2</span>
+      </div>
+      <p class="tagline">Smart Adsorbent Monitoring System &bull; Biochar Fixed-Bed Reactor</p>
     </div>
   </div>
   <div class="header-right">
+    <div class="header-actions">
+      <button type="button" class="header-tool-btn" id="btnAudioToggle" title="Aktifkan/Nonaktifkan Suara Peringatan">
+        <span id="audioIcon">🔇</span> <span id="audioText">Audio FX: OFF</span>
+      </button>
+      <button type="button" class="header-tool-btn primary" id="btnOpenTelemetry" title="Buka Live Telemetry Stream Inspector">
+        <span>📡</span> <span>Live Telemetry</span>
+      </button>
+    </div>
     <div class="system-status" id="systemStatus">
       <span class="status-dot active"></span>
-      <span>Sistem Aktif</span>
+      <span id="statusLabel">SCADA ONLINE</span>
     </div>
     <div class="clock" id="clock"></div>
   </div>
 </header>
+
+<!-- ============ ENTERPRISE TELEMETRY SUB-BAR ============ -->
+<div class="enterprise-ribbon">
+  <div class="ribbon-item">
+    <span class="ribbon-dot live"></span>
+    <span class="ribbon-label">PLANT ID:</span>
+    <span class="ribbon-val">Citarum Textile Complex #04 (Bandung)</span>
+  </div>
+  <div class="ribbon-item">
+    <span class="ribbon-label">AI INFERENCE CORE:</span>
+    <span class="ribbon-val high-tech">VANDER-Neural v4.2 [Active]</span>
+  </div>
+  <div class="ribbon-item">
+    <span class="ribbon-label">LATENCY / PROTOCOL:</span>
+    <span class="ribbon-val" id="ribbonLatency">8 ms &bull; OPC-UA / TLS 1.3</span>
+  </div>
+  <div class="ribbon-item">
+    <span class="ribbon-label">CONFIDENCE SCORE:</span>
+    <span class="ribbon-val text-success" id="ribbonConfidence">99.4% (F1: 0.982)</span>
+  </div>
+</div>
 
 <!-- ============ EMERGENCY BANNER ============ -->
 <div class="emergency-banner" id="emergencyBanner">
@@ -84,6 +116,46 @@
 
 <!-- ============ MAIN CONTENT ============ -->
 <main class="main-content">
+
+  <!-- SECTION: AI Live Advisory & Neural Reasoning Hub -->
+  <section class="section ai-advisory-section">
+    <div class="ai-advisory-card">
+      <div class="ai-advisory-header">
+        <div class="ai-brain-badge">
+          <span class="pulse-ring"></span>
+          <span class="ai-chip-icon">🧠</span>
+          <strong>VANDER-AI Neural Reasoning Engine</strong>
+        </div>
+        <div class="ai-confidence-pill">
+          <span>Inference Confidence:</span>
+          <strong id="aiConfidenceVal">99.4%</strong>
+        </div>
+      </div>
+      <div class="ai-advisory-body">
+        <div class="ai-stream-text" id="aiStreamText">
+          <span class="typing-cursor">&gt;</span> <span id="aiReasoningMsg">Menginisialisasi analisis kinetika Thomas &amp; gaya Van der Waals... Seluruh situs aktif biochar termonitor stabil.</span>
+        </div>
+        <div class="ai-diagnostics-row">
+          <div class="diag-item">
+            <span class="diag-label">Model Adsorpsi:</span>
+            <span class="diag-val" id="diagModel">Langmuir-Freundlich Hybrid</span>
+          </div>
+          <div class="diag-item">
+            <span class="diag-label">Massa Biochar Aktif:</span>
+            <span class="diag-val">125.0 kg (Pyrolysis 500°C)</span>
+          </div>
+          <div class="diag-item">
+            <span class="diag-label">Reduksi Cr(VI) Kinetika:</span>
+            <span class="diag-val text-success" id="diagRedox">Pseudo-Second Order (k₂: 0.042)</span>
+          </div>
+          <div class="diag-item">
+            <span class="diag-label">Safety Interlock:</span>
+            <span class="diag-val text-success" id="diagInterlock">ARMED &amp; MONITORING</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- SECTION: Summary Metric Cards -->
   <section class="section metrics-section">
@@ -139,15 +211,18 @@
   <!-- SECTION: Water Visualization -->
   <section class="section water-section">
     <div class="section-title">
-      <h2>🔬 Visualisasi Proses Filtrasi</h2>
+      <h2>🔬 Visualisasi Proses Filtrasi &amp; Nephelometer Optik</h2>
+      <span class="viz-subtitle">Pemindaian Spektrofotometri &amp; Hamburan Cahaya (ISO 7027 Turbidity Standard)</span>
     </div>
     <div class="water-viz-container">
       <!-- LEFT: Dirty Water Beaker -->
       <div class="beaker-wrapper">
         <div class="beaker-label">SEBELUM</div>
-        <div class="beaker-sublabel">Air Limbah Industri</div>
+        <div class="beaker-sublabel">Air Limbah Industri Mentah</div>
         <div class="beaker" id="beakerDirty">
           <div class="beaker-glass">
+            <div class="laser-scanner" id="dirtyLaser" title="Sinar Laser Nephelometrik (650 nm)"></div>
+            <div class="laser-scatter-cone dirty-cone" id="dirtyScatterCone"></div>
             <div class="water dirty-water" id="dirtyWater">
               <div class="wave"></div>
               <div class="bubbles" id="dirtyBubbles"></div>
@@ -164,8 +239,12 @@
           </div>
           <div class="beaker-base"></div>
         </div>
+        <div class="optical-badge danger" id="dirtyOpticalBadge">
+          <span class="opt-dot"></span>
+          <span id="dirtyOpticalText">Hamburan Cahaya: 96.8% &bull; Transmitansi: 3.2%</span>
+        </div>
         <div class="water-status dirty-status">
-          <span class="status-badge danger">DARK & TURBID</span>
+          <span class="status-badge danger">DARK &amp; TURBID</span>
           <div class="water-params">
             <span>pH: <strong id="dirtyPH">3.2</strong></span>
             <span>NTU: <strong id="dirtyNTU">450</strong></span>
@@ -180,16 +259,18 @@
           <div class="arrow-icon">⚗️</div>
           <div class="arrow-line"></div>
         </div>
-        <div class="process-label">Biochar<br>Filter</div>
-        <div class="process-detail">Van der Waals + Redoks</div>
+        <div class="process-label">Biochar<br>Adsorbent Column</div>
+        <div class="process-detail">Van der Waals &bull; Redoks &bull; Kemisorpsi</div>
       </div>
 
       <!-- RIGHT: Clean Water Beaker -->
       <div class="beaker-wrapper">
         <div class="beaker-label">SESUDAH</div>
-        <div class="beaker-sublabel">Air Hasil Filtrasi</div>
+        <div class="beaker-sublabel">Air Bersih Hasil Adsorpsi Biochar</div>
         <div class="beaker" id="beakerClean">
           <div class="beaker-glass">
+            <div class="laser-scanner clean-laser" id="cleanLaser" title="Sinar Laser Nephelometrik (650 nm)"></div>
+            <div class="laser-scatter-cone clean-cone" id="cleanScatterCone"></div>
             <div class="water clean-water" id="cleanWater">
               <div class="wave"></div>
               <div class="bubbles" id="cleanBubbles"></div>
@@ -206,8 +287,12 @@
           </div>
           <div class="beaker-base"></div>
         </div>
+        <div class="optical-badge success" id="cleanOpticalBadge">
+          <span class="opt-dot"></span>
+          <span id="cleanOpticalText">Transmitansi Optik: 99.2% &bull; Hamburan Cahaya: 0.8%</span>
+        </div>
         <div class="water-status clean-status">
-          <span class="status-badge success">CLEAR & CLEAN</span>
+          <span class="status-badge success">CLEAR &amp; CLEAN</span>
           <div class="water-params">
             <span>pH: <strong id="cleanPH">7.0</strong></span>
             <span>NTU: <strong id="cleanNTU">8</strong></span>
@@ -217,33 +302,81 @@
     </div>
   </section>
 
-  <!-- SECTION: Animated Flow Pipe -->
-  <section class="section pipe-section">
-    <div class="flow-pipe">
-      <div class="pipe-segment pipe-in">
-        <span class="pipe-label">🏭 Limbah Masuk</span>
-        <div class="pipe-flow"><div class="flow-dots"></div></div>
-      </div>
-      <div class="pipe-filter">
-        <div class="filter-icon">
-          <svg viewBox="0 0 60 60" width="60" height="60">
-            <rect x="10" y="8" width="40" height="44" rx="6" fill="none" stroke="#0c4a6e" stroke-width="2.5"/>
-            <line x1="10" y1="20" x2="50" y2="20" stroke="#0c4a6e" stroke-width="1.5" stroke-dasharray="3 2"/>
-            <line x1="10" y1="32" x2="50" y2="32" stroke="#0c4a6e" stroke-width="1.5" stroke-dasharray="3 2"/>
-            <line x1="10" y1="44" x2="50" y2="44" stroke="#0c4a6e" stroke-width="1.5" stroke-dasharray="3 2"/>
-            <circle cx="22" cy="26" r="3" fill="#8b5cf6" opacity="0.5"/>
-            <circle cx="38" cy="26" r="2.5" fill="#10b981" opacity="0.5"/>
-            <circle cx="30" cy="38" r="3.5" fill="#0ea5e9" opacity="0.5"/>
-            <circle cx="20" cy="38" r="2" fill="#f59e0b" opacity="0.5"/>
-            <circle cx="40" cy="38" r="2" fill="#8b5cf6" opacity="0.5"/>
-          </svg>
+  <!-- SECTION: Industrial SCADA Digital Twin Synoptic Flow Diagram -->
+  <section class="section scada-synoptic-section">
+    <div class="section-title">
+      <h2>🏭 Digital Twin: Reaktor Adsorben Kolom Kontinu (P&amp;ID)</h2>
+      <span class="demo-badge">Aliran Proses Industri Real-Time</span>
+    </div>
+    <div class="scada-diagram-card">
+      <div class="scada-flow-wrapper">
+        
+        <!-- Node 1: Feed Pump P-101 -->
+        <div class="scada-node node-pump">
+          <div class="node-tag">PUMP P-101</div>
+          <div class="pump-icon-wrap" id="pumpIconWrap">
+            <span class="pump-symbol">⚙️</span>
+          </div>
+          <div class="node-meta">
+            <span class="node-state running" id="pumpState">RUNNING</span>
+            <small id="pumpSpeed">Flow: 75.0 L/jam</small>
+          </div>
         </div>
-        <span class="filter-label">Biochar Reactor</span>
-        <span class="filter-sub">Adsorpsi &bull; Redoks &bull; Van der Waals</span>
-      </div>
-      <div class="pipe-segment pipe-out">
-        <div class="pipe-flow clean-flow"><div class="flow-dots"></div></div>
-        <span class="pipe-label">💧 Air Bersih Keluar</span>
+
+        <!-- Pipe Connector 1 -->
+        <div class="scada-pipe-line active-line">
+          <div class="pipe-liquid in-flow"></div>
+          <span class="pipe-sensor-tag">FIT-101 / AIT-101</span>
+        </div>
+
+        <!-- Node 2: Biochar Reactor Column R-201 -->
+        <div class="scada-node node-reactor">
+          <div class="node-tag">REACTOR R-201 (BIOCHAR COLUMN)</div>
+          <div class="column-visual">
+            <div class="column-header-cap">Bed Height: 120 cm</div>
+            <div class="column-bed-body">
+              <div class="mtz-zone" id="mtzZoneBar" style="height: 15%;" title="Mass Transfer Zone (MTZ)">
+                <span class="mtz-label">Saturasi: <span id="mtzPercent">15%</span></span>
+              </div>
+              <div class="biochar-active-bed">
+                <div class="biochar-grains"></div>
+                <span class="bed-text">Chicken Manure Biochar Layer (500°C)</span>
+              </div>
+            </div>
+            <div class="column-footer-cap">
+              <span>ΔP: <strong id="bedPressure">0.18 bar</strong></span>
+              <span>T: <strong>28.4°C</strong></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pipe Connector 2 -->
+        <div class="scada-pipe-line active-line">
+          <div class="pipe-liquid out-flow"></div>
+          <span class="pipe-sensor-tag">TURB-201 / AIT-202</span>
+        </div>
+
+        <!-- Node 3: Motorized 3-Way Valve MOV-301 -->
+        <div class="scada-node node-valve">
+          <div class="node-tag">VALVE MOV-301 (ACTUATOR)</div>
+          <div class="valve-actuator-box">
+            <div class="valve-visual-symbol" id="scadaValveIcon">🚰</div>
+            <div class="valve-direction-lines">
+              <div class="stream-branch stream-river active" id="streamRiver">
+                <span class="stream-dot"></span>
+                <span class="stream-label">Ke Sungai (Normal)</span>
+              </div>
+              <div class="stream-branch stream-retention" id="streamRetention">
+                <span class="stream-dot"></span>
+                <span class="stream-label">Tangki Retensi (Bypass)</span>
+              </div>
+            </div>
+          </div>
+          <div class="node-meta">
+            <span class="node-state open" id="scadaValveState">RIVER DISCHARGE OPEN</span>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -413,6 +546,24 @@
           <div class="countdown-section">
             <div class="countdown-label">Filter diprediksi jenuh dalam:</div>
             <div class="countdown-value" id="countdownValue">48 jam 30 menit</div>
+          </div>
+          <div class="kinetic-params-grid">
+            <div class="k-item" title="Konstanta Laju Model Thomas">
+              <span class="k-label">k<sub>Th</sub> (Thomas):</span>
+              <span class="k-val">0.038 mL/mg&bull;min</span>
+            </div>
+            <div class="k-item" title="Kapasitas Adsorpsi Maksimum">
+              <span class="k-label">q<sub>0</sub> (Sat. Max):</span>
+              <span class="k-val">146.2 mg/g</span>
+            </div>
+            <div class="k-item" title="Waktu 50% Breakthrough Yoon-Nelson">
+              <span class="k-label">&tau; (50% Exh.):</span>
+              <span class="k-val" id="kParamTau">52.8 jam</span>
+            </div>
+            <div class="k-item" title="Panjang Mass Transfer Zone (MTZ)">
+              <span class="k-label">MTZ Length:</span>
+              <span class="k-val" id="kParamMTZ">18.4 cm</span>
+            </div>
           </div>
           <div class="mini-chart-container">
             <canvas id="capacityChart" height="120"></canvas>
@@ -767,6 +918,33 @@
   </section>
 
 </main>
+
+<!-- ============ LIVE TELEMETRY MODAL ============ -->
+<div class="telemetry-modal-overlay" id="telemetryModal">
+  <div class="telemetry-modal">
+    <div class="telemetry-modal-header">
+      <div class="modal-title">
+        <span class="modal-dot live"></span>
+        <h3>Live IoT Telemetry Stream (MQTT / SCADA Packet Inspector)</h3>
+      </div>
+      <button type="button" class="modal-close-btn" id="btnCloseTelemetry">&times;</button>
+    </div>
+    <div class="telemetry-modal-body">
+      <div class="telemetry-meta-bar">
+        <span>Broker: <code>mqtts://iot.vander-ai.enterprise:8883</code></span>
+        <span>Topic: <code>citarum/plant04/biochar01/telemetry</code></span>
+        <span class="badge-tls">TLS 1.3 ENCRYPTED</span>
+      </div>
+      <div class="telemetry-log-console" id="telemetryConsole">
+        <!-- Live JSON stream generated by JS -->
+      </div>
+    </div>
+    <div class="telemetry-modal-footer">
+      <small>Industrial IoT Standard: OPC-UA &amp; MQTT JSON-LD Telemetry Spec v2.1</small>
+      <button type="button" class="telemetry-btn-copy" id="btnClearTelemetry">Bersihkan Log</button>
+    </div>
+  </div>
+</div>
 
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
