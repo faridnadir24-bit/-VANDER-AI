@@ -452,7 +452,8 @@
         legend: {
           position: 'top',
           labels: {
-            font: { family: 'Inter', size: 11 },
+            color: '#334155',
+            font: { family: 'Inter', size: 11, weight: '600' },
             usePointStyle: true,
             pointStyle: 'circle',
             padding: 16
@@ -468,12 +469,12 @@
       },
       scales: {
         x: {
-          grid: { color: 'rgba(148, 163, 184, 0.08)' },
-          ticks: { font: { family: 'Inter', size: 10 }, color: '#94a3b8', maxRotation: 0 }
+          grid: { color: 'rgba(0, 0, 0, 0.05)' },
+          ticks: { font: { family: 'Inter', size: 10 }, color: '#64748b', maxRotation: 0 }
         },
         y: {
-          grid: { color: 'rgba(148, 163, 184, 0.08)' },
-          ticks: { font: { family: 'Inter', size: 10 }, color: '#94a3b8' }
+          grid: { color: 'rgba(0, 0, 0, 0.05)' },
+          ticks: { font: { family: 'Inter', size: 10 }, color: '#64748b' }
         }
       },
       elements: {
