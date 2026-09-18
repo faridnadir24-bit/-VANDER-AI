@@ -1868,6 +1868,7 @@ body.scada-theme, body {
 }
 
 .demo-btn {
+  position: relative;
   background: #ffffff;
   border: 1px solid var(--scada-border);
   border-radius: var(--radius-lg);
@@ -2565,4 +2566,17 @@ body.scada-theme, body {
 .hardware-led.indigo.active, .demo-btn.info:hover .hardware-led {
   background: #6366f1;
   box-shadow: 0 0 6px #6366f1;
+}
+
+/* ============ RESPONSIVE REFINEMENTS (5-KPI & 3-AI MODULES) ============ */
+@media (min-width: 1200px) {
+  .metrics-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .ai-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

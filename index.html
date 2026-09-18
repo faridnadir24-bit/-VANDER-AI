@@ -294,28 +294,6 @@
         </div>
       </div>
 
-      <!-- Card 5 -->
-      <div class="metric-card">
-        <div class="metric-top-row">
-          <div class="metric-icon-scada icon-blue">
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23"/>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-          </div>
-          <div class="metric-sparkline-box">
-            <svg class="metric-sparkline" viewBox="0 0 80 26">
-              <path id="sparkSavings" d="M0 24 Q30 18 50 10 T80 2" fill="none" stroke="#0284c7" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-            <span class="sparkline-trend text-info font-mono">PDAM Eco</span>
-          </div>
-        </div>
-        <div class="metric-info">
-          <span class="metric-label">Estimasi Penghematan</span>
-          <span class="metric-value font-mono" id="metricSavings">Rp 0</span>
-        </div>
-      </div>
-
       <!-- Card 6 -->
       <div class="metric-card">
         <div class="metric-top-row">
@@ -433,7 +411,7 @@
           <span class="beaker-label">SAMPLING OUTLET [AIT-202]</span>
           <span class="status-indicator-pill success">PERMEATE EFFLUENT</span>
         </div>
-        <div class="beaker-sublabel">Air Bersih Hasil Adsorpsi Biochar Kotoran Ayam</div>
+        <div class="beaker-sublabel">Air Bersih Hasil Adsorpsi Biochar Limbah Ayam</div>
         <div class="beaker" id="beakerClean">
           <div class="beaker-glass">
             <div class="laser-scanner clean-laser" id="cleanLaser" title="Sinar Laser Nephelometrik (650 nm NIR)"></div>
@@ -546,7 +524,7 @@
               </div>
               <div class="biochar-active-bed">
                 <div class="biochar-grains"></div>
-                <span class="bed-text">Chicken Manure Biochar Layer (500°C)</span>
+                <span class="bed-text">Chicken Waste Biochar Layer (500°C)</span>
               </div>
             </div>
 
@@ -741,7 +719,7 @@
             <strong>Gaya Van der Waals</strong>
             <span class="formula-badge font-mono">E<sub>vdW</sub> &prop; -C/r⁶</span>
           </div>
-          <small>Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada mikropori biochar kotoran ayam.</small>
+          <small>Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada mikropori biochar limbah ayam.</small>
         </div>
       </div>
 
@@ -947,40 +925,6 @@
             <div class="valve-text">
               <span id="valveLabel" class="font-mono">Katup menuju sungai: TERBUKA</span>
               <span id="valveDetail" class="valve-detail">Air output memenuhi standar baku mutu</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Module D: Eco-Efficiency -->
-      <div class="ai-card" id="ecoModule">
-        <div class="ai-card-header">
-          <span class="ai-icon">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
-          </span>
-          <div class="ai-title-wrap">
-            <h3>Smart Eco-Efficiency &amp; ESG Calculator</h3>
-            <span class="ai-model-tag font-mono">Waste-to-Resource Circular Metric</span>
-          </div>
-        </div>
-        <div class="ai-card-body">
-          <div class="eco-grid">
-            <div class="eco-item">
-              <span class="eco-value font-mono" id="ecoWater">0</span>
-              <span class="eco-unit">Liter</span>
-              <span class="eco-label">Air Bersih Didaur Ulang</span>
-            </div>
-            <div class="eco-item">
-              <span class="eco-value font-mono" id="ecoCost">Rp 0</span>
-              <span class="eco-unit">Rupiah</span>
-              <span class="eco-label">Penghematan Biaya Air PDAM</span>
-            </div>
-            <div class="eco-item">
-              <span class="eco-value font-mono" id="ecoCO2">0</span>
-              <span class="eco-unit">kg CO₂</span>
-              <span class="eco-label">Emisi Karbon Ditekan</span>
             </div>
           </div>
         </div>
@@ -1204,7 +1148,7 @@
       <span class="demo-badge font-mono">TACTILE HMI CONSOLE</span>
     </div>
     <div class="demo-controls-card">
-      <p class="demo-desc">Validasi responsivitas sistem: picu skenario anomali kualitas (*interlock trip*), simulasi penyumbatan pori (*bed clogging*), siklus regenerasi (*backwash cycle*), atau unduh audit telemetri CSV:</p>
+      <p class="demo-desc">Validasi responsivitas sistem: picu skenario anomali kualitas (Interlock Trip), simulasi penyumbatan pori (Bed Clogging), siklus regenerasi (Backwash Cycle), atau unduh audit telemetri CSV:</p>
       <div class="demo-buttons-grid">
         <button type="button" class="demo-btn tactile danger" id="btnTriggerEmergency">
           <span class="hardware-led red" id="ledEmergency"></span>
@@ -1356,7 +1300,7 @@
 <!-- ============ FOOTER ============ -->
 <footer class="footer">
   <p>VANDER-AI &copy; 2026 &mdash; Van der Waals &amp; Redox Smart Adsorbent Artificial Intelligence</p>
-  <p class="footer-sub">Sistem Pemantauan Cerdas Instalasi Pengolahan Air Limbah Industri Berbasis Biochar Kotoran Ayam</p>
+  <p class="footer-sub">Sistem Pemantauan Cerdas Instalasi Pengolahan Air Limbah Industri Berbasis Biochar Limbah Ayam</p>
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>

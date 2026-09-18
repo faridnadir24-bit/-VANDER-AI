@@ -227,9 +227,7 @@
 
     document.getElementById('metricCapacity').textContent = formatNumber(state.adsorptionCapacity, 1) + '%';
 
-    // Savings: assume commercial water = Rp 15/liter
-    const savings = state.totalVolumeOut * 15;
-    document.getElementById('metricSavings').textContent = formatCurrency(savings);
+    // Savings metric card removed per configuration
 
     // CO2: assume 0.3 kg CO2 per 1000L of water treatment avoided
     const co2 = (state.totalVolumeOut / 1000) * 0.3;
@@ -373,11 +371,9 @@
     }
   }
 
-  // ============ AI MODULE: ECO-EFFICIENCY ============
+  // ============ AI MODULE: ECO-EFFICIENCY (REMOVED) ============
   function updateEcoEfficiency() {
-    document.getElementById('ecoWater').textContent = formatNumber(state.totalVolumeOut, 1);
-    document.getElementById('ecoCost').textContent = formatCurrency(state.totalVolumeOut * 15);
-    document.getElementById('ecoCO2').textContent = formatNumber((state.totalVolumeOut / 1000) * 0.3, 3);
+    // Eco-Efficiency & ESG Calculator module removed per configuration
   }
 
   function updateRemovalEfficiency() {
@@ -816,7 +812,7 @@
       }
     } else if (state.adsorptionCapacity > 50) {
       const messages = [
-        `Gaya tarik Van der Waals optimal pada mikropori biochar kotoran ayam (luas spesifik 287 m²/g). Efisiensi penjerapan polutan organik tekstil mencapai 96.8%.`,
+        `Gaya tarik Van der Waals optimal pada mikropori biochar limbah ayam (luas spesifik 287 m²/g). Efisiensi penjerapan polutan organik tekstil mencapai 96.8%.`,
         `Gugus karboksil (-COOH) dan hidroksil (-OH) biochar aktif mengkelat kation logam berat Pb²⁺ dan Cd²⁺ secara selektif & stabil.`,
         `Reaksi redoks Cr⁶⁺ → Cr³⁺ berlangsung normal mengikuti kinetika pseudo-second order (k₂: 0.042 g/mg·min). Air limbah tereduksi sempurna.`,
         `Fluks hidrolik stabil (${formatNumber(state.output.flow, 1)} L/jam). Tekanan kolom adsorpsi normal pada 0.18 bar, tidak terdeteksi fouling/clogging.`,
@@ -1218,7 +1214,7 @@
     showLoadingScreen().then(() => {
       // Initial notifications
       addNotification('info', 'Sistem VANDER-AI Enterprise diinisialisasi. Seluruh sensor aktif.');
-      addNotification('info', 'Biochar kotoran ayam siap digunakan sebagai media adsorben (pirolisis 500°C).');
+      addNotification('info', 'Biochar limbah ayam siap digunakan sebagai media adsorben (pirolisis 500°C).');
       addNotification('info', 'Monitoring SCADA real-time: gaya Van der Waals & reaksi Redoks dimulai.');
       addNotification('info', 'Inference Engine aktif: model kinetika Yoon-Nelson & Thomas online.');
 

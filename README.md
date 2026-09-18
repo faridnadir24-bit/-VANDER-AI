@@ -1,6 +1,6 @@
 # VANDER-AI: Enterprise SCADA Smart Adsorbent Monitoring System
 > **Van der Waals & Redox Smart Adsorbent Artificial Intelligence (Enterprise SCADA v4.2)**  
-> Industrial Fixed-Bed Chicken Manure Biochar Wastewater Treatment & Digital Twin Telemetry Suite
+> Industrial Fixed-Bed Chicken Waste Biochar Wastewater Treatment & Digital Twin Telemetry Suite
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 ![Technology](https://img.shields.io/badge/Frontend-HTML5%20%7C%20CSS3%20%7C%20Vanilla%20JS-brightgreen.svg)
@@ -12,7 +12,7 @@
 
 ## Ringkasan Sistem & Latar Belakang
 
-**VANDER-AI Enterprise Suite v4.2** adalah sistem pemantauan cerdas dan *Digital Twin* berbasis web untuk Instalasi Pengolahan Air Limbah (IPAL) industri tekstil dan elektroplating. Sistem ini memanfaatkan **biochar dari kotoran ayam (*chicken manure biochar*)** sebagai media adsorben bernilai tambah tinggi untuk menyerap zat warna, polutan organik, serta mereduksi ion logam berat berbahaya secara simultan.
+**VANDER-AI Enterprise Suite v4.2** adalah sistem pemantauan cerdas dan *Digital Twin* berbasis web untuk Instalasi Pengolahan Air Limbah (IPAL) industri tekstil dan elektroplating. Sistem ini memanfaatkan **biochar dari limbah ayam (*chicken waste biochar*)** sebagai media adsorben bernilai tambah tinggi untuk menyerap zat warna, polutan organik, serta mereduksi ion logam berat berbahaya secara simultan.
 
 VANDER-AI mengadopsi spesifikasi perangkat lunak kontrol industri kelas *Enterprise SCADA* (mengacu pada standar HMI ISA-101 dan Alarm Management ISA-18.2):
 - **Neural Reasoning Hub**: Analisis kinetika adsorpsi dan inferensi status media secara *real-time*.
@@ -27,7 +27,7 @@ VANDER-AI mengadopsi spesifikasi perangkat lunak kontrol industri kelas *Enterpr
 
 | Prinsip | Rumus / Model | Mekanisme pada Media Biochar |
 |---|---|---|
-| **Gaya Van der Waals** | $E_{vdW} \propto -\frac{C}{r^6}$ | Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada pori mikro-meso karbon aktif biochar kotoran ayam. |
+| **Gaya Van der Waals** | $E_{vdW} \propto -\frac{C}{r^6}$ | Adsorpsi fisik multi-lapisan molekul zat warna tekstil pada pori mikro-meso karbon aktif biochar limbah ayam. |
 | **Reaksi Redoks** | $\text{Cr}^{6+} + 3e^- \xrightarrow{\text{Biochar}} \text{Cr}^{3+}$ | Reduksi ion kromium heksavalen karsinogenik menjadi ion trivalen yang stabil dan terendapkan oleh gugus donor elektron biochar. |
 | **Afinitas Gugus Fungsi** | $-\text{COOH},\, -\text{OH},\, -\text{NH}_2$ | Kompleksasi permukaan yang secara selektif mengikat kation logam berat ($\text{Pb}^{2+}, \text{Cd}^{2+}, \text{Cu}^{2+}$). |
 | **Kemisorpsi Monolayer** | $\Delta G^\circ < 0$ | Pembentukan ikatan kovalen koordinasi spontan pada situs aktif karbon hasil pirolisis 500°C. |
